@@ -146,4 +146,4 @@ def testClass():
     user.create_user(data["firstName"], data["lastName"], data["email"], 
                      data["phone"], data["company_admin_key"], data["country"])
 
-testClass()
+# testClass()

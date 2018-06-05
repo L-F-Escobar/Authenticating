@@ -2,3 +2,6 @@ Authenticate end point notes
 
 Create user end point
     - A user can be created with the same information ad infinitum successfully; generating a new userId every time.
+    - firstName can be any integer &/or float value.
+    - lastName can be any integer &/or float value.
+    - phone can be any integer, float, or string value.
