@@ -1,8 +1,5 @@
 # .gitignore
 
-# Database
-assets/
-
 # Data
 data.json
 src/qa/test/data.json
