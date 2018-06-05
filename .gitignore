@@ -1,0 +1,23 @@
+# .gitignore
+
+# Database
+assets/
+
+# Logs
+src/qa/data
+data/
+
+# Build Files
+build/contracts
+build/
+
+# Python
+.pyc
+*.pyc
+.project
+.pydevproject
+__pycache__
+
+# Editors
+.vscode
+
