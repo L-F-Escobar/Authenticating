@@ -15,3 +15,6 @@ Verify Phone end point
 
 Verify Phone Code end point
     - Can only automate the fail cases.
+
+Verify Email end point  
+    - A user can verify their email ad infinitum
