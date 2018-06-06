@@ -304,6 +304,46 @@ class Authenticate:
 
 
 
+    ## @fn verify_phone_code : 
+    #
+    def verify_phone_code(self, accessCode='', smsCode='', accessCodeExclude=False,
+                          smsCodeExclude=False):
+        
+        url = self.environment + data["verifyPhoneCode"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+            
+        if smsCodeExclude == True:
+            pass
+        elif smsCode != '':
+            body['smsCode'] = smsCode
+        else:
+            body['smsCode'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nverify_phone_code\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -346,8 +386,14 @@ def testClass():
 
 
 
+    # # Method signature. DONE
+    # # def verify_phone(self, accessCode='', accessCodeExclude=False):
+    # user.verify_phone(user.GetAccessCode())
+
+
     # Method signature. DONE
-    # def verify_phone(self, accessCode='', accessCodeExclude=False):
-    user.verify_phone(user.GetAccessCode())
+    # def verify_phone_code(self, accessCode='', smsCode='', accessCodeExclude=False,
+    #                      smsCodeExclude=False):
+    user.verify_phone_code(user.GetAccessCode(), data["smsCode"])
 
 # testClass()

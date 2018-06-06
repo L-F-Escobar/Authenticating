@@ -36,18 +36,6 @@ class TestVerifyPhone(unittest.TestCase):
                                 phone = AuthenticateShell.data["phone"], 
                                 companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                 country = AuthenticateShell.data["country"])
-
-            cls.user.update_user(accessCode = cls.user.GetAccessCode(), 
-                                address = AuthenticateShell.data["address"], 
-                                city = AuthenticateShell.data["city"],
-                                state = AuthenticateShell.data["state"], 
-                                zipCode = AuthenticateShell.data["zipCode"], 
-                                phone = AuthenticateShell.data["phone"],
-                                month = AuthenticateShell.data["month"], 
-                                day = AuthenticateShell.data["day"], 
-                                year = AuthenticateShell.data["year"],
-                                firstName = AuthenticateShell.data["updatedFirstName"], 
-                                lastName = AuthenticateShell.data["updatedLastName"])
         except:
             print("Unexpected error during setUpClass:", sys.exc_info()[0])
 

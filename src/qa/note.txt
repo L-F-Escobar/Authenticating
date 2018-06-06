@@ -12,3 +12,6 @@ Update User end point
 
 Verify Phone end point  
     - A user can verify their phone ad infinitum
+
+Verify Phone Code end point
+    - Can only automate the fail cases.
