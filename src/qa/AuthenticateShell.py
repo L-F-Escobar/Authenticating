@@ -126,6 +126,120 @@ class Authenticate:
 
 
 
+    ## @fn update_user : allows a user profile to be updated.
+    #
+    def update_user(self, accessCode='', address='', city='', state='',
+                    zipCode='', phone='', month=0, day=0, year=0,
+                    firstName='', lastName='', accessCodeExclude=False,
+                    addressExclude=False, cityExclude=False, stateExclude=False,
+                    zipCodeExclude=False, phoneExclude=False, monthExclude=False,
+                    dayExclude=False, yearExclude=False, firstNameExclude=False,
+                    lastNameExclude=False):
+        
+        url = self.environment + data["updateUser"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        if addressExclude == True:
+            pass
+        elif address != '':
+            body['address'] = address
+        else:
+            body['address'] = ''
+        
+        if cityExclude == True:
+            pass
+        elif city != '':
+            body['city'] = city
+        else:
+            body['city'] = ''
+        
+        if stateExclude == True:
+            pass
+        elif state != '':
+            body['state'] = state
+        else:
+            body['state'] = ''
+
+        if zipCodeExclude == True:
+            pass
+        elif zipCode != '':
+            body['zipCode'] = zipCode
+        else:
+            body['zipCode'] = ''
+
+        if phoneExclude == True:
+            pass
+        elif phone != '':
+            body['phone'] = phone
+        else:
+            body['phone'] = ''
+        
+        if monthExclude == True:
+            pass
+        elif month != '':
+            body['month'] = month
+        else:
+            body['month'] = ''
+        
+        if dayExclude == True:
+            pass
+        elif day != '':
+            body['day'] = day
+        else:
+            body['day'] = ''
+
+        if yearExclude == True:
+            pass
+        elif year != '':
+            body['year'] = year
+        else:
+            body['year'] = ''
+
+        if firstNameExclude == True:
+            pass
+        elif firstName != '':
+            body['firstName'] = firstName
+        else:
+            body['firstName'] = ''
+            
+        if lastNameExclude == True:
+            pass
+        elif lastName != '':
+            body['lastName'] = lastName
+        else:
+            body['lastName'] = ''
+            
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nupdate_user\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        # Grab the request Id of a successful call.
+        if 'successful' in responseBody.keys():
+            if responseBody['successful'] == True:
+                self.AccessCode = responseBody['accessCode']
+                self.UserId = responseBody['userId']
+        
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -146,4 +260,18 @@ def testClass():
     user.create_user(data["firstName"], data["lastName"], data["email"], 
                      data["phone"], data["company_admin_key"], data["country"])
 
-testClass()
+
+    # Method signature. DONE
+    # def update_user(self, accessCode='', address='', city='', state='',
+    #                zipCode='', phone='', month=0, day=0, year=0,
+    #                firstName='', lastName='', accessCodeExclude=False,
+    #                addressExclude=False, cityExclude=False, stateExclude=False,
+    #                zipCodeExclude=False, phoneExclude=False, monthExclude=False,
+    #                dayExclude=False, yearExclude=False, firstNameExclude=False,
+    #                lastNameExclude=False):
+    user.update_user(user.GetAccessCode(), data["address"], data["city"],
+                     data["state"], data["zipCode"], data["phone"],
+                     data["month"], data["day"], data["year"],
+                     data["updatedFirstName"], data["updatedLastName"])
+
+# testClass()
