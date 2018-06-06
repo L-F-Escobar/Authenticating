@@ -240,6 +240,142 @@ class Authenticate:
 
 
 
+    ## @fn get_user : gets a users information
+    #
+    def get_user(self, accessCode='', accessCodeExclude=False):
+        
+        url = self.environment + data["getUser"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+            
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nget_user\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn verify_phone : 
+    #
+    def verify_phone(self, accessCode='', accessCodeExclude=False):
+        
+        url = self.environment + data["verifyPhone"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+            
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nverify_phone\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn verify_phone_code : 
+    #
+    def verify_phone_code(self, accessCode='', smsCode='', accessCodeExclude=False,
+                          smsCodeExclude=False):
+        
+        url = self.environment + data["verifyPhoneCode"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+            
+        if smsCodeExclude == True:
+            pass
+        elif smsCode != '':
+            body['smsCode'] = smsCode
+        else:
+            body['smsCode'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nverify_phone_code\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn verify_email : 
+    #
+    def verify_email(self, accessCode='', accessCodeExclude=False):
+        
+        url = self.environment + data["verifyEmail"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+            
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nverify_email\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -261,17 +397,41 @@ def testClass():
                      data["phone"], data["company_admin_key"], data["country"])
 
 
+    # # Method signature. DONE
+    # # def update_user(self, accessCode='', address='', city='', state='',
+    # #                zipCode='', phone='', month=0, day=0, year=0,
+    # #                firstName='', lastName='', accessCodeExclude=False,
+    # #                addressExclude=False, cityExclude=False, stateExclude=False,
+    # #                zipCodeExclude=False, phoneExclude=False, monthExclude=False,
+    # #                dayExclude=False, yearExclude=False, firstNameExclude=False,
+    # #                lastNameExclude=False):
+    # user.update_user(user.GetAccessCode(), data["address"], data["city"],
+    #                  data["state"], data["zipCode"], data["phone"],
+    #                  data["month"], data["day"], data["year"],
+    #                  data["updatedFirstName"], data["updatedLastName"])
+
+
+
+    # # Method signature. DONE
+    # # def get_user(self, accessCode='', accessCodeExclude=False):             
+    # user.get_user(user.GetAccessCode())
+
+
+
+    # # Method signature. DONE
+    # # def verify_phone(self, accessCode='', accessCodeExclude=False):
+    # user.verify_phone(user.GetAccessCode())
+
+
+    # # Method signature. DONE
+    # # def verify_phone_code(self, accessCode='', smsCode='', accessCodeExclude=False,
+    # #                      smsCodeExclude=False):
+    # user.verify_phone_code(user.GetAccessCode(), data["smsCode"])
+
+
     # Method signature. DONE
-    # def update_user(self, accessCode='', address='', city='', state='',
-    #                zipCode='', phone='', month=0, day=0, year=0,
-    #                firstName='', lastName='', accessCodeExclude=False,
-    #                addressExclude=False, cityExclude=False, stateExclude=False,
-    #                zipCodeExclude=False, phoneExclude=False, monthExclude=False,
-    #                dayExclude=False, yearExclude=False, firstNameExclude=False,
-    #                lastNameExclude=False):
-    user.update_user(user.GetAccessCode(), data["address"], data["city"],
-                     data["state"], data["zipCode"], data["phone"],
-                     data["month"], data["day"], data["year"],
-                     data["updatedFirstName"], data["updatedLastName"])
+    # def verify_email(self, accessCode='', accessCodeExclude=False):
+    user.verify_email(user.GetAccessCode())
+
 
 # testClass()
