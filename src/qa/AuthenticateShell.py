@@ -240,6 +240,44 @@ class Authenticate:
 
 
 
+    ## @fn get_user : gets a users information
+    #
+    def get_user(self, accessCode='', accessCodeExclude=False):
+        
+        url = self.environment + data["getUser"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+            
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nget_user\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        # # Grab the request Id of a successful call.
+        # if 'successful' in responseBody.keys():
+        #     if responseBody['successful'] == True:
+        #         self.AccessCode = responseBody['accessCode']
+        #         self.UserId = responseBody['userId']
+        
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -261,17 +299,23 @@ def testClass():
                      data["phone"], data["company_admin_key"], data["country"])
 
 
+    # # Method signature. DONE
+    # # def update_user(self, accessCode='', address='', city='', state='',
+    # #                zipCode='', phone='', month=0, day=0, year=0,
+    # #                firstName='', lastName='', accessCodeExclude=False,
+    # #                addressExclude=False, cityExclude=False, stateExclude=False,
+    # #                zipCodeExclude=False, phoneExclude=False, monthExclude=False,
+    # #                dayExclude=False, yearExclude=False, firstNameExclude=False,
+    # #                lastNameExclude=False):
+    # user.update_user(user.GetAccessCode(), data["address"], data["city"],
+    #                  data["state"], data["zipCode"], data["phone"],
+    #                  data["month"], data["day"], data["year"],
+    #                  data["updatedFirstName"], data["updatedLastName"])
+
+
+
     # Method signature. DONE
-    # def update_user(self, accessCode='', address='', city='', state='',
-    #                zipCode='', phone='', month=0, day=0, year=0,
-    #                firstName='', lastName='', accessCodeExclude=False,
-    #                addressExclude=False, cityExclude=False, stateExclude=False,
-    #                zipCodeExclude=False, phoneExclude=False, monthExclude=False,
-    #                dayExclude=False, yearExclude=False, firstNameExclude=False,
-    #                lastNameExclude=False):
-    user.update_user(user.GetAccessCode(), data["address"], data["city"],
-                     data["state"], data["zipCode"], data["phone"],
-                     data["month"], data["day"], data["year"],
-                     data["updatedFirstName"], data["updatedLastName"])
+    # def get_user(self, accessCode='', accessCodeExclude=False):             
+    user.get_user(user.GetAccessCode())
 
 # testClass()
