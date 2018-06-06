@@ -268,11 +268,37 @@ class Authenticate:
             print('\nget_user\n', responseBody)
             print('\nresponse.status_code: ', response.status_code)
         
-        # # Grab the request Id of a successful call.
-        # if 'successful' in responseBody.keys():
-        #     if responseBody['successful'] == True:
-        #         self.AccessCode = responseBody['accessCode']
-        #         self.UserId = responseBody['userId']
+        return responseBody
+
+
+
+    ## @fn verify_phone : 
+    #
+    def verify_phone(self, accessCode='', accessCodeExclude=False):
+        
+        url = self.environment + data["verifyPhone"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+            
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nverify_phone\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
         
         return responseBody
 
@@ -314,8 +340,14 @@ def testClass():
 
 
 
+    # # Method signature. DONE
+    # # def get_user(self, accessCode='', accessCodeExclude=False):             
+    # user.get_user(user.GetAccessCode())
+
+
+
     # Method signature. DONE
-    # def get_user(self, accessCode='', accessCodeExclude=False):             
-    user.get_user(user.GetAccessCode())
+    # def verify_phone(self, accessCode='', accessCodeExclude=False):
+    user.verify_phone(user.GetAccessCode())
 
 # testClass()
