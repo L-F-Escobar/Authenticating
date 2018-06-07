@@ -1,4 +1,5 @@
 import requests, os, json
+import time
 
 requests.packages.urllib3.disable_warnings()
 
@@ -432,7 +433,6 @@ class Authenticate:
 
 
 
-
     ## @fn get_available_social_networks : 
     #
     def get_available_social_networks(self, accessCode='', accessCodeExclude=False):
@@ -459,6 +459,126 @@ class Authenticate:
         
         if TestOutput == True:
             print('\nget_available_social_networks\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn compare_photo : 
+    #
+    def compare_photo(self, accessCode='', img1='', img2='',
+                      accessCodeExclude=False, img1Exclude=False,
+                      img2Exclude=False):
+        
+        url = self.environment + data["comparePhotos"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+        
+        if img1Exclude == True:
+            pass
+        elif img1 != '':
+            body['img1'] = img1
+        else:
+            body['img1'] = ''
+
+        if img2Exclude == True:
+            pass
+        elif img2 != '':
+            body['img2'] = img2
+        else:
+            body['img2'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\ncompare_photo\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn get_test_result : 
+    #
+    def get_test_result(self, accessCode='', companyAdminKey='',
+                        accessCodeExclude=False, companyAdminKeyExclude=False):
+        
+        url = self.environment + data["getTestResult"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+        
+        if companyAdminKeyExclude == True:
+            pass
+        elif companyAdminKey != '':
+            body['companyAdminKey'] = companyAdminKey
+        else:
+            body['companyAdminKey'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nget_test_result\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn check_upload_id : 
+    #
+    def check_upload_id(self, accessCode='', accessCodeExclude=False):
+        
+        url = self.environment + data["checkUploadId"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\ncheck_upload_id\n', responseBody)
             print('\nresponse.status_code: ', response.status_code)
         
         return responseBody
@@ -533,13 +653,28 @@ def testClass():
     #                            data['socialMediaAccessToken'], data['socialMediaUserId'])
 
 
+    # # Method signature. DONE
+    # # def get_available_social_networks(self, accessCode='', accessCodeExclude=False):
+    # user.get_available_social_networks(user.GetAccessCode())
+
+
+
     # Method signature. DONE
-    # def get_available_social_networks(self, accessCode='', accessCodeExclude=False):
-    user.get_available_social_networks(user.GetAccessCode())
+    # def compare_photo(self, accessCode='', img1='', img2='',
+    #                   accessCodeExclude=False, img1Exclude=False,
+    #                   img2Exclude=False):
+    user.compare_photo(user.GetAccessCode(), data['my_selfie_1'], data['my_selfie_2'])
+
+    time.sleep(60)
+
+    # Method signature. DONE
+    # def get_test_result(self, accessCode='', companyAdminKey='',
+    #                     accessCodeExclude=False, companyAdminKeyExclude=False):
+    user.get_test_result(user.GetAccessCode(), data['company_admin_key'])
 
 
+    # Method signature. DONE
+    # def check_upload_id(self, accessCode='', accessCodeExclude=False):
+    user.check_upload_id(user.GetAccessCode())
 
-
-
-
-# testClass()
+testClass()
