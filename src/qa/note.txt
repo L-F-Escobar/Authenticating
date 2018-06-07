@@ -18,3 +18,7 @@ Verify Phone Code end point
 
 Verify Email end point  
     - A user can verify their email ad infinitum
+
+Verify Social Networks end point    
+    - Networks can be any integer, float & string value.
+    - SocialMediaAccessToken can be entirely excluded &/or be any integer, float, or string value.

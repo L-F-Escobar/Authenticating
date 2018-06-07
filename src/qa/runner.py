@@ -6,6 +6,7 @@ from test import testGetUser
 from test import testVerifyPhone
 from test import testVerifyPhoneCode
 from test import testVerifyEmail
+from test import testVerifySocialNetworks
 
 # Initialize a test loader & test suite package.
 loader = unittest.TestLoader()
@@ -16,7 +17,8 @@ suite  = unittest.TestSuite()
 # suite.addTests(loader.suiteClass(testGetUser.suite()))
 # suite.addTests(loader.suiteClass(testVerifyPhone.suite()))
 # suite.addTests(loader.suiteClass(testVerifyPhoneCode.suite()))
-suite.addTests(loader.suiteClass(testVerifyEmail.suite()))
+# suite.addTests(loader.suiteClass(testVerifyEmail.suite()))
+suite.addTests(loader.suiteClass(testVerifySocialNetworks.suite()))
 
 # Initialize an xml runner.
 testRunner=xmlrunner.XMLTestRunner(output='data/testReports', verbosity=2)
