@@ -427,7 +427,39 @@ class Authenticate:
         if TestOutput == True:
             print('\nverify_social_network\n', responseBody)
             print('\nresponse.status_code: ', response.status_code)
-            print('\nbody:', body)
+        
+        return responseBody
+
+
+
+
+    ## @fn get_available_social_networks : 
+    #
+    def get_available_social_networks(self, accessCode='', accessCodeExclude=False):
+        
+        url = self.environment + data["getAvailableSocialNetworks"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nget_available_social_networks\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
         
         return responseBody
 
@@ -492,13 +524,22 @@ def testClass():
 
 
 
+    # # Method signature. DONE
+    # # def verify_social_network(self, accessCode='', network='', socialMediaAccessToken='',
+    # #                           socialMediaUserId='', accessCodeExclude=False,
+    # #                           networkExclude=True, socialMediaAccessTokenExclude=True,
+    # #                           socialMediaUserIdExclude=True):
+    # user.verify_social_network(user.GetAccessCode(), data['network'], 
+    #                            data['socialMediaAccessToken'], data['socialMediaUserId'])
+
+
     # Method signature. DONE
-    # def verify_social_network(self, accessCode='', network='', socialMediaAccessToken='',
-    #                           socialMediaUserId='', accessCodeExclude=False,
-    #                           networkExclude=True, socialMediaAccessTokenExclude=True,
-    #                           socialMediaUserIdExclude=True):
-    user.verify_social_network(user.GetAccessCode(), data['network'], 
-                               data['socialMediaAccessToken'], data['socialMediaUserId'])
+    # def get_available_social_networks(self, accessCode='', accessCodeExclude=False):
+    user.get_available_social_networks(user.GetAccessCode())
+
+
+
+
 
 
 # testClass()
