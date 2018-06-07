@@ -23,7 +23,7 @@ import sys, unittest, AuthenticateShell
         String AccessCode value.
         Array AccessCode value.   
 '''
-class TestVerifyPhone(unittest.TestCase):
+class TestVerifyEmail(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -123,14 +123,14 @@ class TestVerifyPhone(unittest.TestCase):
 def suite():
     suite = unittest.TestSuite()
 
-    suite.addTest(TestVerifyPhone('test_success'))
+    suite.addTest(TestVerifyEmail('test_success'))
 
-    suite.addTest(TestVerifyPhone('test_missingAccessCode'))
-    suite.addTest(TestVerifyPhone('test_nullAccessCode'))
-    suite.addTest(TestVerifyPhone('test_intAccessCode'))
-    suite.addTest(TestVerifyPhone('test_floatAccessCode'))
-    suite.addTest(TestVerifyPhone('test_stringAccessCode'))
-    suite.addTest(TestVerifyPhone('test_arrayAccessCode'))
+    suite.addTest(TestVerifyEmail('test_missingAccessCode'))
+    suite.addTest(TestVerifyEmail('test_nullAccessCode'))
+    suite.addTest(TestVerifyEmail('test_intAccessCode'))
+    suite.addTest(TestVerifyEmail('test_floatAccessCode'))
+    suite.addTest(TestVerifyEmail('test_stringAccessCode'))
+    suite.addTest(TestVerifyEmail('test_arrayAccessCode'))
     
     return suite
     
