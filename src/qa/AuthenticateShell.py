@@ -376,6 +376,95 @@ class Authenticate:
 
 
 
+    ## @fn verify_social_network : 
+    #
+    def verify_social_network(self, accessCode='', network='', socialMediaAccessToken='',
+                              socialMediaUserId='', accessCodeExclude=False,
+                              networkExclude=False, socialMediaAccessTokenExclude=False,
+                              socialMediaUserIdExclude=False):
+        
+        url = self.environment + data["verifySocialNetworks"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        if networkExclude == True:
+            pass
+        elif network != '':
+            body['network'] = network
+        else:
+            body['network'] = ''
+
+        if socialMediaAccessTokenExclude == True:
+            pass
+        elif socialMediaAccessToken != '':
+            body['socialMediaAccessToken'] = socialMediaAccessToken
+        else:
+            body['socialMediaAccessToken'] = ''
+
+        if socialMediaUserIdExclude == True:
+            pass
+        elif socialMediaUserId != '':
+            body['socialMediaUserId'] = socialMediaUserId
+        else:
+            body['socialMediaUserId'] = ''
+            
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nverify_social_network\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+
+    ## @fn get_available_social_networks : 
+    #
+    def get_available_social_networks(self, accessCode='', accessCodeExclude=False):
+        
+        url = self.environment + data["getAvailableSocialNetworks"]
+        
+        headers = {
+            'Content-Type' : 'application/json',
+            'authKey' : data["authKey"]
+        }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nget_available_social_networks\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -429,9 +518,28 @@ def testClass():
     # user.verify_phone_code(user.GetAccessCode(), data["smsCode"])
 
 
+    # # Method signature. DONE
+    # # def verify_email(self, accessCode='', accessCodeExclude=False):
+    # user.verify_email(user.GetAccessCode())
+
+
+
+    # # Method signature. DONE
+    # # def verify_social_network(self, accessCode='', network='', socialMediaAccessToken='',
+    # #                           socialMediaUserId='', accessCodeExclude=False,
+    # #                           networkExclude=True, socialMediaAccessTokenExclude=True,
+    # #                           socialMediaUserIdExclude=True):
+    # user.verify_social_network(user.GetAccessCode(), data['network'], 
+    #                            data['socialMediaAccessToken'], data['socialMediaUserId'])
+
+
     # Method signature. DONE
-    # def verify_email(self, accessCode='', accessCodeExclude=False):
-    user.verify_email(user.GetAccessCode())
+    # def get_available_social_networks(self, accessCode='', accessCodeExclude=False):
+    user.get_available_social_networks(user.GetAccessCode())
+
+
+
+
 
 
 # testClass()
