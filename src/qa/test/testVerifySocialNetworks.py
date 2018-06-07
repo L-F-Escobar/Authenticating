@@ -259,7 +259,7 @@ class TestVerifySocialNetworks(unittest.TestCase):
     
 
     # Missing SocialMediaAccessToken information from request call.
-    @unittest.skip("socialMediaAccessToken can be entirely excluded")
+    #@unittest.skip("socialMediaAccessToken can be entirely excluded")
     def test_missingSocialMediaAccessToken(self):
         responseBody = self.user.verify_social_network(accessCode = self.user.GetAccessCode(), 
                                                        network = AuthenticateShell.data['network'], 
@@ -267,20 +267,20 @@ class TestVerifySocialNetworks(unittest.TestCase):
                                                        socialMediaUserId = AuthenticateShell.data['socialMediaUserId'],
                                                        socialMediaAccessTokenExclude = True)
 
-        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
+        self.assertEqual(responseBody['successful'], False,
                          msg='test_missingSocialMediaAccessToken assert#1 has failed.')
         
         
         
     # Test a null SocialMediaAccessToken.
-    @unittest.skip("socialMediaAccessToken can be entirely excluded")
+    #@unittest.skip("socialMediaAccessToken can be entirely excluded")
     def test_nullSocialMediaAccessToken(self):
         responseBody = self.user.verify_social_network(accessCode = self.user.GetAccessCode(), 
                                                        network = AuthenticateShell.data['network'], 
                                                        socialMediaAccessToken = '', 
                                                        socialMediaUserId = AuthenticateShell.data['socialMediaUserId'])
 
-        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
+        self.assertEqual(responseBody['successful'], False,
                           msg='test_nullSocialMediaAccessToken assert#1 has failed.')
 
 

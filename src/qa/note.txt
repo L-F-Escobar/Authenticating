@@ -21,4 +21,5 @@ Verify Email end point
 
 Verify Social Networks end point    
     - Networks can be any integer, float & string value.
-    - SocialMediaAccessToken can be entirely excluded &/or be any integer, float, or string value.
+    - SocialMediaAccessToken can be any integer, float, or string value.
+    - SocialMediaUserId can be any integer, float, or string value.
