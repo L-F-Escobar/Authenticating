@@ -465,7 +465,12 @@ class Authenticate:
 
 
 
-    ## @fn compare_photo : 
+    ## @fn compare_photo : This is used to complete the photo verification process.
+    #                      Endpt takes 2 base64 imgs.
+    #                      Does not return an indicator as to whether or not they 
+    #                      actually passed the photo verification, this endpoint 
+    #                      returns a success if the two images sent were successfully 
+    #                      uploaded and saved to the database.
     #
     def compare_photo(self, accessCode='', img1='', img2='',
                       accessCodeExclude=False, img1Exclude=False,
@@ -665,16 +670,16 @@ def testClass():
     #                   img2Exclude=False):
     user.compare_photo(user.GetAccessCode(), data['my_selfie_1'], data['my_selfie_2'])
 
-    time.sleep(60)
+    # time.sleep(60)
 
-    # Method signature. DONE
-    # def get_test_result(self, accessCode='', companyAdminKey='',
-    #                     accessCodeExclude=False, companyAdminKeyExclude=False):
-    user.get_test_result(user.GetAccessCode(), data['company_admin_key'])
+    # # Method signature. DONE
+    # # def get_test_result(self, accessCode='', companyAdminKey='',
+    # #                     accessCodeExclude=False, companyAdminKeyExclude=False):
+    # user.get_test_result(user.GetAccessCode(), data['company_admin_key'])
 
 
-    # Method signature. DONE
-    # def check_upload_id(self, accessCode='', accessCodeExclude=False):
-    user.check_upload_id(user.GetAccessCode())
+    # # Method signature. DONE
+    # # def check_upload_id(self, accessCode='', accessCodeExclude=False):
+    # user.check_upload_id(user.GetAccessCode())
 
-testClass()
+# testClass()
