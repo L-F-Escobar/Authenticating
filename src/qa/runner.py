@@ -14,14 +14,14 @@ from test import testComparePhotos
 loader = unittest.TestLoader()
 suite  = unittest.TestSuite()
 
-# suite.addTests(loader.suiteClass(testCreateUser.suite()))
-# suite.addTests(loader.suiteClass(testUpdateUser.suite()))
-# suite.addTests(loader.suiteClass(testGetUser.suite()))
-# suite.addTests(loader.suiteClass(testVerifyPhone.suite()))
-# suite.addTests(loader.suiteClass(testVerifyPhoneCode.suite()))
-# suite.addTests(loader.suiteClass(testVerifyEmail.suite()))
-# suite.addTests(loader.suiteClass(testVerifySocialNetworks.suite()))
-# suite.addTests(loader.suiteClass(testGetAvailableSocialNetworks.suite()))
+suite.addTests(loader.suiteClass(testCreateUser.suite()))
+suite.addTests(loader.suiteClass(testUpdateUser.suite()))
+suite.addTests(loader.suiteClass(testGetUser.suite()))
+suite.addTests(loader.suiteClass(testVerifyPhone.suite()))
+suite.addTests(loader.suiteClass(testVerifyPhoneCode.suite()))
+suite.addTests(loader.suiteClass(testVerifyEmail.suite()))
+suite.addTests(loader.suiteClass(testVerifySocialNetworks.suite()))
+suite.addTests(loader.suiteClass(testGetAvailableSocialNetworks.suite()))
 suite.addTests(loader.suiteClass(testComparePhotos.suite()))
 
 # Initialize an xml runner.

@@ -1,5 +1,5 @@
 import requests, os, json
-import time
+import time, base64
 
 requests.packages.urllib3.disable_warnings()
 
@@ -56,14 +56,20 @@ class Authenticate:
     def create_user(self, firstName='', lastName='', email='', phone='',
                     companyAdminKey='', country='', firstNameExclude=False,
                     lastNameExclude=False, emailExclude=False, phoneExclude=False,
-                    companyAdminKeyExclude=False, countryExclude=False):
+                    companyAdminKeyExclude=False, countryExclude=False, sandBox=False):
         
         url = self.environment + data["createUser"]
-        
-        headers = {
-            'Content-Type' : 'application/json',
-            'authKey' : data["authKey"]
-        }
+
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
         
         body = {}
         
@@ -135,14 +141,20 @@ class Authenticate:
                     addressExclude=False, cityExclude=False, stateExclude=False,
                     zipCodeExclude=False, phoneExclude=False, monthExclude=False,
                     dayExclude=False, yearExclude=False, firstNameExclude=False,
-                    lastNameExclude=False):
+                    lastNameExclude=False, sandBox=False):
         
         url = self.environment + data["updateUser"]
         
-        headers = {
-            'Content-Type' : 'application/json',
-            'authKey' : data["authKey"]
-        }
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
         
         body = {}
         
@@ -243,14 +255,20 @@ class Authenticate:
 
     ## @fn get_user : gets a users information
     #
-    def get_user(self, accessCode='', accessCodeExclude=False):
+    def get_user(self, accessCode='', accessCodeExclude=False, sandBox=False):
         
         url = self.environment + data["getUser"]
         
-        headers = {
-            'Content-Type' : 'application/json',
-            'authKey' : data["authKey"]
-        }
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
         
         body = {}
         
@@ -275,14 +293,20 @@ class Authenticate:
 
     ## @fn verify_phone : 
     #
-    def verify_phone(self, accessCode='', accessCodeExclude=False):
+    def verify_phone(self, accessCode='', accessCodeExclude=False, sandBox=False):
         
         url = self.environment + data["verifyPhone"]
         
-        headers = {
-            'Content-Type' : 'application/json',
-            'authKey' : data["authKey"]
-        }
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
         
         body = {}
         
@@ -308,14 +332,20 @@ class Authenticate:
     ## @fn verify_phone_code : 
     #
     def verify_phone_code(self, accessCode='', smsCode='', accessCodeExclude=False,
-                          smsCodeExclude=False):
+                          smsCodeExclude=False, sandBox=False):
         
         url = self.environment + data["verifyPhoneCode"]
         
-        headers = {
-            'Content-Type' : 'application/json',
-            'authKey' : data["authKey"]
-        }
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
         
         body = {}
         
@@ -347,14 +377,20 @@ class Authenticate:
 
     ## @fn verify_email : 
     #
-    def verify_email(self, accessCode='', accessCodeExclude=False):
+    def verify_email(self, accessCode='', accessCodeExclude=False, sandBox=False):
         
         url = self.environment + data["verifyEmail"]
         
-        headers = {
-            'Content-Type' : 'application/json',
-            'authKey' : data["authKey"]
-        }
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
         
         body = {}
         
@@ -382,14 +418,20 @@ class Authenticate:
     def verify_social_network(self, accessCode='', network='', socialMediaAccessToken='',
                               socialMediaUserId='', accessCodeExclude=False,
                               networkExclude=False, socialMediaAccessTokenExclude=False,
-                              socialMediaUserIdExclude=False):
+                              socialMediaUserIdExclude=False, sandBox=False):
         
         url = self.environment + data["verifySocialNetworks"]
         
-        headers = {
-            'Content-Type' : 'application/json',
-            'authKey' : data["authKey"]
-        }
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
         
         body = {}
         
@@ -435,14 +477,21 @@ class Authenticate:
 
     ## @fn get_available_social_networks : 
     #
-    def get_available_social_networks(self, accessCode='', accessCodeExclude=False):
+    def get_available_social_networks(self, accessCode='', accessCodeExclude=False,
+                                      sandBox=False):
         
         url = self.environment + data["getAvailableSocialNetworks"]
         
-        headers = {
-            'Content-Type' : 'application/json',
-            'authKey' : data["authKey"]
-        }
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
         
         body = {}
         
@@ -474,14 +523,20 @@ class Authenticate:
     #
     def compare_photo(self, accessCode='', img1='', img2='',
                       accessCodeExclude=False, img1Exclude=False,
-                      img2Exclude=False):
+                      img2Exclude=False, sandBox=False):
         
         url = self.environment + data["comparePhotos"]
         
-        headers = {
-            'Content-Type' : 'application/json',
-            'authKey' : data["authKey"]
-        }
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
         
         body = {}
         
@@ -521,14 +576,21 @@ class Authenticate:
     ## @fn get_test_result : 
     #
     def get_test_result(self, accessCode='', companyAdminKey='',
-                        accessCodeExclude=False, companyAdminKeyExclude=False):
+                        accessCodeExclude=False, companyAdminKeyExclude=False,
+                        sandBox=False):
         
         url = self.environment + data["getTestResult"]
         
-        headers = {
-            'Content-Type' : 'application/json',
-            'authKey' : data["authKey"]
-        }
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
         
         body = {}
         
@@ -560,14 +622,20 @@ class Authenticate:
 
     ## @fn check_upload_id : used to determine if the uploadId process has finished.
     #
-    def check_upload_id(self, accessCode='', accessCodeExclude=False):
+    def check_upload_id(self, accessCode='', accessCodeExclude=False, sandBox=False):
         
         url = self.environment + data["checkUploadId"]
         
-        headers = {
-            'Content-Type' : 'application/json',
-            'authKey' : data["authKey"]
-        }
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
         
         body = {}
         
@@ -590,6 +658,63 @@ class Authenticate:
 
 
 
+    ## @fn upload_id : 
+    
+    #
+    def upload_id(self, accessCode='', idFront='', idBack='',
+                      accessCodeExclude=False, idBackExclude=False,
+                      idFrontExclude=False, sandBox=False):
+        
+        url = self.environment + data["uploadId"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+        
+        if idBackExclude == True:
+            pass
+        elif idBack != '':
+            body['idBack'] = idBack
+        else:
+            body['idBack'] = ''
+
+        if idFrontExclude == True:
+            pass
+        elif idFront != '':
+            body['idFront'] = idFront
+        else:
+            body['idFront'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        # resultMessage == key
+        if TestOutput == True:
+            print('\nupload_id\n', responseBody)
+            print('\nresponse.text\n', response.text)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -597,7 +722,25 @@ class Authenticate:
         return self.AccessCode
 
 
+## Hard coded function to take real DL pictures. Hard coded for security & ease of testing.
+def base64Encode():
+    with open("C:\\Users\\lescobar-driver\\Documents\Authenticating\\Authenticating\\src\\qa\\assets\\dlfront.jpg", "rb") as dlFront:
+        encoded_img_front = base64.b64encode(dlFront.read())
+    
+    with open("C:\\Users\\lescobar-driver\\Documents\Authenticating\\Authenticating\\src\\qa\\assets\\dlback.jpg", "rb") as dlBack:
+        encoded_img_back = base64.b64encode(dlBack.read())
+
+    # return encoded_img_front[1:], encoded_img_back[1:]
+    return encoded_img_front.decode('UTF-8'), encoded_img_back.decode('UTF-8')
+    # return encoded_img_front
+
+
+
+
+
 def testClass():
+    front, back = base64Encode()
+
     # Declare class objects. Create class instance. DONE
     user = Authenticate()
 
@@ -608,7 +751,8 @@ def testClass():
     #             lastNameExclude=False, emailExclude=False, phoneExclude=False,
     #             companyAdminKeyExclude=False, countryExclude=False):
     user.create_user(data["firstName"], data["lastName"], data["email"], 
-                     data["phone"], data["company_admin_key"], data["country"])
+                     data["phone"], data["company_admin_key"], data["country"],
+                     sandBox=True)
 
 
     # # Method signature. DONE
@@ -670,16 +814,24 @@ def testClass():
     # #                   img2Exclude=False):
     # user.compare_photo(user.GetAccessCode(), data['my_selfie_1'], data['my_selfie_2'])
 
-    # time.sleep(60)
 
-    # # Method signature. 
+    # # Method signature. NOT NOT NOT NOT DONE
     # # def get_test_result(self, accessCode='', companyAdminKey='',
     # #                     accessCodeExclude=False, companyAdminKeyExclude=False):
     # user.get_test_result(user.GetAccessCode(), data['company_admin_key'])
 
 
-    # Method signature. 
+    # Method signature. NOT NOT NOT NOT DONE
+    # def upload_id(self, accessCode='', idFront='', idBack='',
+    #                   accessCodeExclude=False, idBackExclude=False,
+    #                   idFrontExclude=False, sandBox=False):
+    # user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
+    user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
+
+    time.sleep(30)
+
+    # Method signature. NOT NOT NOT NOT DONE
     # def check_upload_id(self, accessCode='', accessCodeExclude=False):
-    user.check_upload_id(user.GetAccessCode())
+    user.check_upload_id(user.GetAccessCode(), sandBox=True)
 
 testClass()
