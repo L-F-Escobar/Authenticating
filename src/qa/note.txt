@@ -26,3 +26,6 @@ Verify Social Networks end point
 
 Upload Id end point
     - the response is a string instead of a dictionary key:value pair (bug)
+
+Upload Id Enhcnaced end point
+    - the response is a string instead of a dictionary key:value pair (bug)

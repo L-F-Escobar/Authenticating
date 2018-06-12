@@ -715,6 +715,63 @@ class Authenticate:
 
 
 
+    ## @fn upload_id_enhanced : This is different from uploadId in that it is a 
+    #                           more rigorous check and is harder to pass
+    #
+    def upload_id_enhanced(self, accessCode='', idFront='', idBack='',
+                            accessCodeExclude=False, idBackExclude=False,
+                            idFrontExclude=False, sandBox=False):
+        
+        url = self.environment + data["uploadEnhancedId"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+        
+        if idBackExclude == True:
+            pass
+        elif idBack != '':
+            body['idBack'] = idBack
+        else:
+            body['idBack'] = ''
+
+        if idFrontExclude == True:
+            pass
+        elif idFront != '':
+            body['idFront'] = idFront
+        else:
+            body['idFront'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        # resultMessage == key
+        if TestOutput == True:
+            print('\nupload_id_enhanced\n', responseBody)
+            print('\nresponse.text\n', response.text)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -819,11 +876,18 @@ def testClass():
     # user.get_test_result(user.GetAccessCode(), data['company_admin_key'])
 
 
-    # Method signature. NOT NOT NOT NOT DONE
-    # def upload_id(self, accessCode='', idFront='', idBack='',
-    #                   accessCodeExclude=False, idBackExclude=False,
-    #                   idFrontExclude=False, sandBox=False):
-    user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
+    # # Method signature. BROKEN
+    # # def upload_id(self, accessCode='', idFront='', idBack='',
+    # #                   accessCodeExclude=False, idBackExclude=False,
+    # #                   idFrontExclude=False, sandBox=False):
+    # user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
+
+
+    # Method signature. BROKEN
+    # def upload_id_enhanced(self, accessCode='', idFront='', idBack='',
+    #                         accessCodeExclude=False, idBackExclude=False,
+    #                         idFrontExclude=False, sandBox=False):
+    user.upload_id_enhanced(user.GetAccessCode(), front, back, sandBox=True)
 
     time.sleep(30)
 
@@ -831,4 +895,4 @@ def testClass():
     # def check_upload_id(self, accessCode='', accessCodeExclude=False):
     user.check_upload_id(user.GetAccessCode(), sandBox=True)
 
-# testClass()
+testClass()

@@ -5,11 +5,13 @@ import sys, unittest, AuthenticateShell
     
     Purpose - This is used to capture data from an ID and, if determined 
               to be a valid ID, auto-fill forms.
+              This is different from uploadId in that it is a more rigorous 
+              check and is harder to pass.
 
     Method signature:
-        def upload_id(self, accessCode='', idFront='', idBack='',
-                      accessCodeExclude=False, idBackExclude=False,
-                      idFrontExclude=False, sandBox=False):
+        def upload_id_enhanced(self, accessCode='', idFront='', idBack='',
+                                accessCodeExclude=False, idBackExclude=False,
+                                idFrontExclude=False, sandBox=False):
 
     Note: THIS END POINT IS BROKEN DUE TO SAND BOXING.
 
@@ -42,7 +44,7 @@ import sys, unittest, AuthenticateShell
         String IdBack value.
         Array IdBack value. 
 '''
-class TestUploadId(unittest.TestCase):
+class TestUploadIdEnchanced(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -72,10 +74,10 @@ class TestUploadId(unittest.TestCase):
 
     # Successfully upload a drivers license id.
     def test_success(self):
-        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
-                                           idFront = self.frontId, 
-                                           idBack = self.backId,
-                                           sandBox=True)
+        responseBody = self.user.upload_id_enhanced(accessCode = self.user.GetAccessCode(), 
+                                                    idFront = self.frontId, 
+                                                    idBack = self.backId,
+                                                    sandBox=True)
 
         self.assertNotEqual(responseBody, '',
                          msg='test_success assert#1 has failed.')
@@ -266,28 +268,28 @@ class TestUploadId(unittest.TestCase):
 def suite():
     suite = unittest.TestSuite()
 
-    suite.addTest(TestUploadId('test_success'))
+    suite.addTest(TestUploadIdEnchanced('test_success'))
 
-    # suite.addTest(TestUploadId('test_missingAccessCode'))
-    # suite.addTest(TestUploadId('test_nullAccessCode'))
-    # suite.addTest(TestUploadId('test_intAccessCode'))
-    # suite.addTest(TestUploadId('test_floatAccessCode'))
-    # suite.addTest(TestUploadId('test_stringAccessCode'))
-    # suite.addTest(TestUploadId('test_arrayAccessCode'))
+    # suite.addTest(TestUploadIdEnchanced('test_missingAccessCode'))
+    # suite.addTest(TestUploadIdEnchanced('test_nullAccessCode'))
+    # suite.addTest(TestUploadIdEnchanced('test_intAccessCode'))
+    # suite.addTest(TestUploadIdEnchanced('test_floatAccessCode'))
+    # suite.addTest(TestUploadIdEnchanced('test_stringAccessCode'))
+    # suite.addTest(TestUploadIdEnchanced('test_arrayAccessCode'))
 
-    # suite.addTest(TestUploadId('test_missingIdFront'))
-    # suite.addTest(TestUploadId('test_nullIdFront'))
-    # suite.addTest(TestUploadId('test_intIdFront'))
-    # suite.addTest(TestUploadId('test_floatIdFront'))
-    # suite.addTest(TestUploadId('test_stringIdFront'))
-    # suite.addTest(TestUploadId('test_arrayIdFront'))
+    # suite.addTest(TestUploadIdEnchanced('test_missingIdFront'))
+    # suite.addTest(TestUploadIdEnchanced('test_nullIdFront'))
+    # suite.addTest(TestUploadIdEnchanced('test_intIdFront'))
+    # suite.addTest(TestUploadIdEnchanced('test_floatIdFront'))
+    # suite.addTest(TestUploadIdEnchanced('test_stringIdFront'))
+    # suite.addTest(TestUploadIdEnchanced('test_arrayIdFront'))
 
-    # suite.addTest(TestUploadId('test_missingIdBack'))
-    # suite.addTest(TestUploadId('test_nullIdBack'))
-    # suite.addTest(TestUploadId('test_intIdBack'))
-    # suite.addTest(TestUploadId('test_floatIdBack'))
-    # suite.addTest(TestUploadId('test_stringIdBack'))
-    # suite.addTest(TestUploadId('test_arrayIdBack'))
+    # suite.addTest(TestUploadIdEnchanced('test_missingIdBack'))
+    # suite.addTest(TestUploadIdEnchanced('test_nullIdBack'))
+    # suite.addTest(TestUploadIdEnchanced('test_intIdBack'))
+    # suite.addTest(TestUploadIdEnchanced('test_floatIdBack'))
+    # suite.addTest(TestUploadIdEnchanced('test_stringIdBack'))
+    # suite.addTest(TestUploadIdEnchanced('test_arrayIdBack'))
 
     return suite
     
