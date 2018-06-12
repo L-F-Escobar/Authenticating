@@ -14,6 +14,7 @@ from test import testUploadId
 from test import testUploadIdEnhanced
 from test import testCheckUploadId
 from test import testUploadPassport
+from test import testCheckUploadPassword
 
 # Initialize a test loader & test suite package.
 loader = unittest.TestLoader()
@@ -36,7 +37,8 @@ else:
         # suite.addTests(loader.suiteClass(testUploadId.suite())) # ENDPT IS BROKEN
         # suite.addTests(loader.suiteClass(testUploadIdEnhanced.suite())) # ENDPT IS BROKEN
         # suite.addTests(loader.suiteClass(testCheckUploadId.suite())) # ENDPT IS BROKEN
-        suite.addTests(loader.suiteClass(testUploadPassport.suite())) # ENDPT IS BROKEN
+        # suite.addTests(loader.suiteClass(testUploadPassport.suite())) # ENDPT IS BROKEN
+        suite.addTests(loader.suiteClass(testCheckUploadPassword.suite()))
 
 # Initialize an xml runner.
 testRunner=xmlrunner.XMLTestRunner(output='data/testReports', verbosity=2)

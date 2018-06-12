@@ -821,6 +821,44 @@ class Authenticate:
 
 
 
+    ## @fn check_upload_passport :  check if the uploadPassport call was successful.
+    #
+    def check_upload_passport(self, accessCode='', accessCodeExclude=False, sandBox=False):
+        
+        url = self.environment + data["checkUploadPassport"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\ncheck_upload_passport\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -954,6 +992,13 @@ def testClass():
     #                     sandBox=False):
     user.upload_passport(user.GetAccessCode(), data['passport_good'], sandBox=True)
 
+
+    time.sleep(30)
+
+
+    # Method signature. BROKEN
+    # def check_upload_passport(self, accessCode='', accessCodeExclude=False, sandBox=False):
+    user.check_upload_passport(user.GetAccessCode(), sandBox=True)
 
 
 # testClass()
