@@ -4,8 +4,6 @@ import sys, unittest, AuthenticateShell, time
     Authenticate check upload passport end point.
     
     Purpose - check if the uploadPassport call was successful.
-    
-    Notes - THIS END POINT IS BROKEN IN SANDBOX - ALWAYS SENDS BACK SAME DATA.
 
     Method signature:
         def check_upload_passport(self, accessCode='', accessCodeExclude=False, sandBox=False):

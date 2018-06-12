@@ -36,5 +36,5 @@ Upload Id Enhcnaced end point (sand box broken)
 Check Upload Id end point (sand box broken)
     - within the sandBox - will always return the same data. (bug)
 
-Upload Password end point (sand box broken)
+Upload Passport end point (sand box broken)
     - the response is a string instead of a dictionary key:value pair (bug)
