@@ -1,4 +1,5 @@
 import unittest, xmlrunner, os
+import sys
 
 from test import testCreateUser
 from test import testUpdateUser
@@ -9,21 +10,28 @@ from test import testVerifyEmail
 from test import testVerifySocialNetworks
 from test import testGetAvailableSocialNetworks
 from test import testComparePhotos
+from test import testUploadId
 
 # Initialize a test loader & test suite package.
 loader = unittest.TestLoader()
 suite  = unittest.TestSuite()
 
-suite.addTests(loader.suiteClass(testCreateUser.suite()))
-suite.addTests(loader.suiteClass(testUpdateUser.suite()))
-suite.addTests(loader.suiteClass(testGetUser.suite()))
-suite.addTests(loader.suiteClass(testVerifyPhone.suite()))
-suite.addTests(loader.suiteClass(testVerifyPhoneCode.suite()))
-suite.addTests(loader.suiteClass(testVerifyEmail.suite()))
-suite.addTests(loader.suiteClass(testVerifySocialNetworks.suite()))
-suite.addTests(loader.suiteClass(testGetAvailableSocialNetworks.suite()))
-suite.addTests(loader.suiteClass(testComparePhotos.suite()))
-
+## $ python runner.py
+if len(sys.argv) == 1:
+    # suite.addTests(loader.suiteClass(testCreateUser.suite()))
+    # suite.addTests(loader.suiteClass(testUpdateUser.suite()))
+    # suite.addTests(loader.suiteClass(testGetUser.suite()))
+    # suite.addTests(loader.suiteClass(testVerifyPhone.suite()))
+    # suite.addTests(loader.suiteClass(testVerifyPhoneCode.suite()))
+    # suite.addTests(loader.suiteClass(testVerifyEmail.suite()))
+    # suite.addTests(loader.suiteClass(testVerifySocialNetworks.suite()))
+    # suite.addTests(loader.suiteClass(testGetAvailableSocialNetworks.suite()))
+    suite.addTests(loader.suiteClass(testComparePhotos.suite()))
+else:
+    ## $ python runner.py -sandBox
+    if sys.argv[1] == '-sandBox':
+        suite.addTests(loader.suiteClass(testUploadId.suite())) # ENDPT IS BROKEN
+    
 # Initialize an xml runner.
 testRunner=xmlrunner.XMLTestRunner(output='data/testReports', verbosity=2)
  

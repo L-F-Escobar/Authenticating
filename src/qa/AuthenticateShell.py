@@ -730,9 +730,7 @@ def base64Encode():
     with open("C:\\Users\\lescobar-driver\\Documents\Authenticating\\Authenticating\\src\\qa\\assets\\dlback.jpg", "rb") as dlBack:
         encoded_img_back = base64.b64encode(dlBack.read())
 
-    # return encoded_img_front[1:], encoded_img_back[1:]
     return encoded_img_front.decode('UTF-8'), encoded_img_back.decode('UTF-8')
-    # return encoded_img_front
 
 
 
@@ -825,7 +823,6 @@ def testClass():
     # def upload_id(self, accessCode='', idFront='', idBack='',
     #                   accessCodeExclude=False, idBackExclude=False,
     #                   idFrontExclude=False, sandBox=False):
-    # user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
     user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
 
     time.sleep(30)
@@ -834,4 +831,4 @@ def testClass():
     # def check_upload_id(self, accessCode='', accessCodeExclude=False):
     user.check_upload_id(user.GetAccessCode(), sandBox=True)
 
-testClass()
+# testClass()
