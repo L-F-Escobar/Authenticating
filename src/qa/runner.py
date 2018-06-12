@@ -12,6 +12,7 @@ from test import testGetAvailableSocialNetworks
 from test import testComparePhotos
 from test import testUploadId
 from test import testUploadIdEnhanced
+from test import testCheckUploadId
 
 # Initialize a test loader & test suite package.
 loader = unittest.TestLoader()
@@ -31,9 +32,10 @@ if len(sys.argv) == 1:
 else:
     ## $ python runner.py -sandBox
     if sys.argv[1] == '-sandBox':
-        suite.addTests(loader.suiteClass(testUploadId.suite())) # ENDPT IS BROKEN
-        suite.addTests(loader.suiteClass(testUploadIdEnhanced.suite())) # ENDPT IS BROKEN
-    
+        # suite.addTests(loader.suiteClass(testUploadId.suite())) # ENDPT IS BROKEN
+        # suite.addTests(loader.suiteClass(testUploadIdEnhanced.suite())) # ENDPT IS BROKEN
+        suite.addTests(loader.suiteClass(testCheckUploadId.suite())) # ENDPT IS BROKEN
+
 # Initialize an xml runner.
 testRunner=xmlrunner.XMLTestRunner(output='data/testReports', verbosity=2)
  
