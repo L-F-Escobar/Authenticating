@@ -1,25 +1,23 @@
 import sys, unittest, AuthenticateShell
 
 '''
-    Authenticate upload id end point.
+    Authenticate  end point.
     
-    Purpose - This is used to capture data from an ID and, if determined 
-              to be a valid ID, auto-fill forms.
+    Purpose - This will upload a front of a passport to check the data
 
     Method signature:
-        def upload_id(self, accessCode='', idFront='', idBack='',
-                      accessCodeExclude=False, idBackExclude=False,
-                      idFrontExclude=False, sandBox=False):
+        def upload_passport(self, accessCode='', idFront='',
+                            accessCodeExclude=False, idFrontExclude=False, 
+                            sandBox=False):
 
     Note: THIS END POINT IS BROKEN DUE TO SAND BOXING.
 
     Required:
         accessCode
         idFront
-        idBack
 
     Test cases
-        Successfully upload a drivers license id.
+        Successfully upload a passport.
 
         AccessCode missing from request call.
         Null AccessCode value. 
@@ -34,15 +32,8 @@ import sys, unittest, AuthenticateShell
         Float IdFront value.   
         String IdFront value.
         Array IdFront value. 
-
-        IdBack missing from request call.
-        Null IdBack value. 
-        Int IdBack value.    
-        Float IdBack value.   
-        String IdBack value.
-        Array IdBack value. 
 '''
-class TestUploadId(unittest.TestCase):
+class TestUploadPassport(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -55,8 +46,6 @@ class TestUploadId(unittest.TestCase):
                                  phone = AuthenticateShell.data["phone"], 
                                  companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                  country = AuthenticateShell.data["country"])
-            
-            cls.frontId, cls.backId = AuthenticateShell.base64Encode()
         except:
             print("Unexpected error during setUpClass:", sys.exc_info()[0])
 
@@ -70,12 +59,11 @@ class TestUploadId(unittest.TestCase):
 
 
 
-    # Successfully upload a drivers license id.
+    # Successfully upload a passport.
     def test_success(self):
-        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
-                                           idFront = self.frontId, 
-                                           idBack = self.backId,
-                                           sandBox=True)
+        responseBody = self.user.upload_passport(accessCode = self.user.GetAccessCode(), 
+                                                idFront = AuthenticateShell.data['passport_good'], 
+                                                sandBox=True)
 
         self.assertNotEqual(responseBody, '',
                          msg='test_success assert#1 has failed.')
@@ -202,92 +190,24 @@ class TestUploadId(unittest.TestCase):
 
 
 
-
-    # # *********************************************************************
-    # # *                           IdBack tests                              *
-    # # *********************************************************************
-    
-    
-        
-    # # Missing IdBack information from request call.
-    # def test_missingIdBack(self):
-    #     responseBody = self.user.
-
-    #     self.assertEqual(responseBody['errorMessage'], "please submit image 2",
-    #                      msg='test_missingIdBack assert#1 has failed.')
-        
-        
-        
-    # # Test a null IdBack.
-    # def test_nullIdBack(self):
-    #     responseBody = self.user.
-
-    #     self.assertEqual(responseBody['errorMessage'], "please submit image 2",
-    #                       msg='test_nullIdBack assert#1 has failed.')
-
-
-
-    # # Test a int IdBack.
-    # def test_intIdBack(self):
-    #     responseBody = self.user.
-
-    #     self.assertEqual(responseBody['errorMessage'], "IdBack is not a valid base-64 string.",
-    #                       msg='test_intIdBack assert#1 has failed.')
-
-
-
-    # # Test a float IdBack.
-    # def test_floatIdBack(self):
-    #     responseBody = self.user.
-
-    #     self.assertEqual(responseBody['errorMessage'], "IdBack is not a valid base-64 string.",
-    #                       msg='test_floatIdBack assert#1 has failed.')
-        
-        
-        
-    # # Test a string IdBack value call.
-    # def test_stringIdBack(self):
-    #     responseBody = self.user.
-
-    #     self.assertEqual(responseBody['errorMessage'], "IdBack is not a valid base-64 string.",
-    #                       msg='test_stringIdBack assert#1 has failed.')
-
-
-
-    # # Test an array IdBack value call.
-    # def test_arrayIdBack(self):
-    #     responseBody = self.user.
-
-    #     self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
-    #                       msg='test_arrayIdBack assert#1 has failed.')
-
-
-
 def suite():
     suite = unittest.TestSuite()
 
-    suite.addTest(TestUploadId('test_success'))
+    suite.addTest(TestUploadPassport('test_success'))
 
-    # suite.addTest(TestUploadId('test_missingAccessCode'))
-    # suite.addTest(TestUploadId('test_nullAccessCode'))
-    # suite.addTest(TestUploadId('test_intAccessCode'))
-    # suite.addTest(TestUploadId('test_floatAccessCode'))
-    # suite.addTest(TestUploadId('test_stringAccessCode'))
-    # suite.addTest(TestUploadId('test_arrayAccessCode'))
+    # suite.addTest(TestUploadPassport('test_missingAccessCode'))
+    # suite.addTest(TestUploadPassport('test_nullAccessCode'))
+    # suite.addTest(TestUploadPassport('test_intAccessCode'))
+    # suite.addTest(TestUploadPassport('test_floatAccessCode'))
+    # suite.addTest(TestUploadPassport('test_stringAccessCode'))
+    # suite.addTest(TestUploadPassport('test_arrayAccessCode'))
 
-    # suite.addTest(TestUploadId('test_missingIdFront'))
-    # suite.addTest(TestUploadId('test_nullIdFront'))
-    # suite.addTest(TestUploadId('test_intIdFront'))
-    # suite.addTest(TestUploadId('test_floatIdFront'))
-    # suite.addTest(TestUploadId('test_stringIdFront'))
-    # suite.addTest(TestUploadId('test_arrayIdFront'))
-
-    # suite.addTest(TestUploadId('test_missingIdBack'))
-    # suite.addTest(TestUploadId('test_nullIdBack'))
-    # suite.addTest(TestUploadId('test_intIdBack'))
-    # suite.addTest(TestUploadId('test_floatIdBack'))
-    # suite.addTest(TestUploadId('test_stringIdBack'))
-    # suite.addTest(TestUploadId('test_arrayIdBack'))
+    # suite.addTest(TestUploadPassport('test_missingIdFront'))
+    # suite.addTest(TestUploadPassport('test_nullIdFront'))
+    # suite.addTest(TestUploadPassport('test_intIdFront'))
+    # suite.addTest(TestUploadPassport('test_floatIdFront'))
+    # suite.addTest(TestUploadPassport('test_stringIdFront'))
+    # suite.addTest(TestUploadPassport('test_arrayIdFront'))
 
     return suite
     

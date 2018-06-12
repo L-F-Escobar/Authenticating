@@ -715,6 +715,150 @@ class Authenticate:
 
 
 
+    ## @fn upload_id_enhanced : This is different from uploadId in that it is a 
+    #                           more rigorous check and is harder to pass
+    #
+    def upload_id_enhanced(self, accessCode='', idFront='', idBack='',
+                            accessCodeExclude=False, idBackExclude=False,
+                            idFrontExclude=False, sandBox=False):
+        
+        url = self.environment + data["uploadEnhancedId"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+        
+        if idBackExclude == True:
+            pass
+        elif idBack != '':
+            body['idBack'] = idBack
+        else:
+            body['idBack'] = ''
+
+        if idFrontExclude == True:
+            pass
+        elif idFront != '':
+            body['idFront'] = idFront
+        else:
+            body['idFront'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        # resultMessage == key
+        if TestOutput == True:
+            print('\nupload_id_enhanced\n', responseBody)
+            print('\nresponse.text\n', response.text)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn upload_passport : This will upload a front of a passport to check the data
+    #
+    def upload_passport(self, accessCode='', idFront='',
+                        accessCodeExclude=False, idFrontExclude=False, 
+                        sandBox=False):
+        
+        url = self.environment + data["uploadPassport"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        if idFrontExclude == True:
+            pass
+        elif idFront != '':
+            body['idFront'] = idFront
+        else:
+            body['idFront'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        # resultMessage == key
+        if TestOutput == True:
+            print('\nupload_passport\n', responseBody)
+            print('\nresponse.text\n', response.text)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn check_upload_passport :  check if the uploadPassport call was successful.
+    #
+    def check_upload_passport(self, accessCode='', accessCodeExclude=False, sandBox=False):
+        
+        url = self.environment + data["checkUploadPassport"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\ncheck_upload_passport\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -737,8 +881,6 @@ def base64Encode():
 
 
 def testClass():
-    front, back = base64Encode()
-
     # Declare class objects. Create class instance. DONE
     user = Authenticate()
 
@@ -819,16 +961,44 @@ def testClass():
     # user.get_test_result(user.GetAccessCode(), data['company_admin_key'])
 
 
-    # Method signature. NOT NOT NOT NOT DONE
-    # def upload_id(self, accessCode='', idFront='', idBack='',
-    #                   accessCodeExclude=False, idBackExclude=False,
-    #                   idFrontExclude=False, sandBox=False):
-    user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
+    # front, back = base64Encode()
+
+
+    # # Method signature. BROKEN
+    # # def upload_id(self, accessCode='', idFront='', idBack='',
+    # #                   accessCodeExclude=False, idBackExclude=False,
+    # #                   idFrontExclude=False, sandBox=False):
+    # user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
+
+
+    # # Method signature. BROKEN
+    # # def upload_id_enhanced(self, accessCode='', idFront='', idBack='',
+    # #                         accessCodeExclude=False, idBackExclude=False,
+    # #                         idFrontExclude=False, sandBox=False):
+    # user.upload_id_enhanced(user.GetAccessCode(), front, back, sandBox=True)
+
+
+    # time.sleep(30)
+
+
+    # # Method signature. BROKEN
+    # # def check_upload_id(self, accessCode='', accessCodeExclude=False):
+    # user.check_upload_id(user.GetAccessCode(), sandBox=True)
+
+
+    # Method signature. BROKEN
+    # def upload_passport(self, accessCode='', idFront='',
+    #                     accessCodeExclude=False, idFrontExclude=False, 
+    #                     sandBox=False):
+    user.upload_passport(user.GetAccessCode(), data['passport_good'], sandBox=True)
+
 
     time.sleep(30)
 
-    # Method signature. NOT NOT NOT NOT DONE
-    # def check_upload_id(self, accessCode='', accessCodeExclude=False):
-    user.check_upload_id(user.GetAccessCode(), sandBox=True)
+
+    # Method signature. BROKEN
+    # def check_upload_passport(self, accessCode='', accessCodeExclude=False, sandBox=False):
+    user.check_upload_passport(user.GetAccessCode(), sandBox=True)
+
 
 # testClass()
