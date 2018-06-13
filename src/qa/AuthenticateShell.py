@@ -1222,11 +1222,11 @@ def testClass():
     # user.set_contract_required(data['company_admin_key'], False, False)
 
 
-    # Method signature. 
-    # def set_photo_match_per(self, companyAdminKey='', percent=40,
-    #                         companyAdminKeyExclude=False, 
-    #                         percentExclude=False, sandBox=False):
-    user.set_photo_match_per(data['company_admin_key'], 40)
+    # # Method signature. DONE
+    # # def set_photo_match_per(self, companyAdminKey='', percent=40,
+    # #                         companyAdminKeyExclude=False, 
+    # #                         percentExclude=False, sandBox=False):
+    # user.set_photo_match_per(data['company_admin_key'], 40)
 
 
 
