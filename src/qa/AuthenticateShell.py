@@ -859,6 +859,56 @@ class Authenticate:
 
 
 
+    ## @fn set_social_networks : This is different from uploadId in that it is a 
+    #                           more rigorous check and is harder to pass
+    #
+    def set_social_networks(self, companyAdminKey='', networks=[],
+                            companyAdminKeyExclude=False, 
+                            networksExclude=False, sandBox=False):
+        
+        url = self.environment + data["setSocialNetworks"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if companyAdminKeyExclude == True:
+            pass
+        elif companyAdminKey != '':
+            body['companyAdminKey'] = companyAdminKey
+        else:
+            body['companyAdminKey'] = ''
+        
+        if networksExclude == True:
+            pass
+        elif networks != '' and networks != []:
+            body['networks'] = networks
+        else:
+            body['networks'] = []
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        # resultMessage == key
+        if TestOutput == True:
+            print('\nset_social_networks\n', responseBody)
+            print('\nresponse.text\n', response.text)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -892,7 +942,7 @@ def testClass():
     #             companyAdminKeyExclude=False, countryExclude=False):
     user.create_user(data["firstName"], data["lastName"], data["email"], 
                      data["phone"], data["company_admin_key"], data["country"],
-                     sandBox=True)
+                     sandBox=False)
 
 
     # # Method signature. DONE
@@ -986,19 +1036,32 @@ def testClass():
     # user.check_upload_id(user.GetAccessCode(), sandBox=True)
 
 
-    # Method signature. BROKEN
-    # def upload_passport(self, accessCode='', idFront='',
-    #                     accessCodeExclude=False, idFrontExclude=False, 
-    #                     sandBox=False):
-    user.upload_passport(user.GetAccessCode(), data['passport_good'], sandBox=True)
+    # # Method signature. BROKEN
+    # # def upload_passport(self, accessCode='', idFront='',
+    # #                     accessCodeExclude=False, idFrontExclude=False, 
+    # #                     sandBox=False):
+    # user.upload_passport(user.GetAccessCode(), data['passport_good'], sandBox=True)
 
 
-    time.sleep(30)
+    # time.sleep(30)
 
 
-    # Method signature. BROKEN
-    # def check_upload_passport(self, accessCode='', accessCodeExclude=False, sandBox=False):
-    user.check_upload_passport(user.GetAccessCode(), sandBox=True)
+    # # Method signature. DONE
+    # # def check_upload_passport(self, accessCode='', accessCodeExclude=False, sandBox=False):
+    # user.check_upload_passport(user.GetAccessCode(), sandBox=True)
 
+
+
+    # Method signature. 
+    # def set_social_networks(self, companyAdminKey='', networks=[],
+    #                         companyAdminKeyExclude=False, 
+    #                         networksExclude=False, sandBox=False):
+    user.set_social_networks(data['company_admin_key'], data['testNetworks'])
+
+    user.get_available_social_networks(user.GetAccessCode())
+
+    user.set_social_networks(data['company_admin_key'], data['defaultNetworks'])
+
+    user.get_available_social_networks(user.GetAccessCode())
 
 # testClass()
