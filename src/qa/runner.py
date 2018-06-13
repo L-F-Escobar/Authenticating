@@ -16,6 +16,7 @@ from test import testCheckUploadId
 from test import testUploadPassport
 from test import testCheckUploadPassword
 from test import testSetSocialNetworks
+from test import testSetContractRequired
 
 # Initialize a test loader & test suite package.
 loader = unittest.TestLoader()
@@ -32,7 +33,8 @@ if len(sys.argv) == 1:
     # suite.addTests(loader.suiteClass(testVerifySocialNetworks.suite()))
     # suite.addTests(loader.suiteClass(testGetAvailableSocialNetworks.suite()))
     # suite.addTests(loader.suiteClass(testComparePhotos.suite()))
-    suite.addTests(loader.suiteClass(testSetSocialNetworks.suite()))
+    # suite.addTests(loader.suiteClass(testSetSocialNetworks.suite()))
+    suite.addTests(loader.suiteClass(testSetContractRequired.suite()))
 else:
     ## $ python runner.py -sandBox
     if sys.argv[1] == '-sandBox':
