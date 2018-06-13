@@ -1226,7 +1226,7 @@ def testClass():
     # def set_photo_match_per(self, companyAdminKey='', percent=40,
     #                         companyAdminKeyExclude=False, 
     #                         percentExclude=False, sandBox=False):
-    user.set_photo_match_per(data['company_admin_key'], 100)
+    user.set_photo_match_per(data['company_admin_key'], 40)
 
 
 
@@ -1234,6 +1234,6 @@ def testClass():
     # def set_days_expire(self, companyAdminKey='', days=10,
     #                     companyAdminKeyExclude=False, daysExclude=False, 
     #                     sandBox=False):
-    user.set_days_expire(data['company_admin_key'], 66)
+    user.set_days_expire(data['company_admin_key'], 10)
 
 # testClass()
