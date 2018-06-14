@@ -859,6 +859,210 @@ class Authenticate:
 
 
 
+    ## @fn set_social_networks : This is different from uploadId in that it is a 
+    #                           more rigorous check and is harder to pass
+    #
+    def set_social_networks(self, companyAdminKey='', networks=[],
+                            companyAdminKeyExclude=False, 
+                            networksExclude=False, sandBox=False):
+        
+        url = self.environment + data["setSocialNetworks"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if companyAdminKeyExclude == True:
+            pass
+        elif companyAdminKey != '':
+            body['companyAdminKey'] = companyAdminKey
+        else:
+            body['companyAdminKey'] = ''
+        
+        if networksExclude == True:
+            pass
+        elif networks != '' and networks != []:
+            body['networks'] = networks
+        else:
+            body['networks'] = []
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        # resultMessage == key
+        if TestOutput == True:
+            print('\nset_social_networks\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn set_contract_required : Set whether or not phone and email verification are 
+    #                              both needed for the contact verified test.
+    #
+    def set_contract_required(self, companyAdminKey='', isPhoneRequired=True,
+                              isEmailRequired=True, companyAdminKeyExclude=False, 
+                              isPhoneRequiredExclude=False, isEmailRequiredExclude=False,
+                              sandBox=False):
+        
+        url = self.environment + data["setContactRequired"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if companyAdminKeyExclude == True:
+            pass
+        elif companyAdminKey != '':
+            body['companyAdminKey'] = companyAdminKey
+        else:
+            body['companyAdminKey'] = ''
+        
+        if isPhoneRequiredExclude == True:
+            pass
+        elif isPhoneRequired != '':
+            body['isPhoneRequired'] = isPhoneRequired
+        else:
+            body['isPhoneRequired'] = ''
+
+        if isEmailRequiredExclude == True:
+            pass
+        elif isEmailRequired != '':
+            body['isEmailRequired'] = isEmailRequired
+        else:
+            body['isEmailRequired'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        # resultMessage == key
+        if TestOutput == True:
+            print('\nset_contract_required\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn set_photo_match_per : set the minimum photo match percent 
+    #                            needed to pass the photo proof test check. 
+    #
+    def set_photo_match_per(self, companyAdminKey='', percent=40,
+                            companyAdminKeyExclude=False, 
+                            percentExclude=False, sandBox=False):
+        
+        url = self.environment + data["setPhotoMatchPercent"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if companyAdminKeyExclude == True:
+            pass
+        elif companyAdminKey != '':
+            body['companyAdminKey'] = companyAdminKey
+        else:
+            body['companyAdminKey'] = ''
+        
+        if percentExclude == True:
+            pass
+        elif percent != '':
+            body['percent'] = percent
+        else:
+            body['percent'] = None
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        # resultMessage == key
+        if TestOutput == True:
+            print('\nset_photo_match_per\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn set_days_expire : set the maximum number of days (24 hour periods) in 
+    #                        which a person can complete their test within. 
+    #
+    def set_days_expire(self, companyAdminKey='', days=10,
+                        companyAdminKeyExclude=False, daysExclude=False, 
+                        sandBox=False):
+        
+        url = self.environment + data["setDaysToExpire"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if companyAdminKeyExclude == True:
+            pass
+        elif companyAdminKey != '':
+            body['companyAdminKey'] = companyAdminKey
+        else:
+            body['companyAdminKey'] = ''
+        
+        if daysExclude == True:
+            pass
+        elif days != '':
+            body['days'] = days
+        else:
+            body['days'] = None
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        # resultMessage == key
+        if TestOutput == True:
+            print('\nset_days_expire\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -892,7 +1096,7 @@ def testClass():
     #             companyAdminKeyExclude=False, countryExclude=False):
     user.create_user(data["firstName"], data["lastName"], data["email"], 
                      data["phone"], data["company_admin_key"], data["country"],
-                     sandBox=True)
+                     sandBox=False)
 
 
     # # Method signature. DONE
@@ -986,19 +1190,50 @@ def testClass():
     # user.check_upload_id(user.GetAccessCode(), sandBox=True)
 
 
-    # Method signature. BROKEN
-    # def upload_passport(self, accessCode='', idFront='',
-    #                     accessCodeExclude=False, idFrontExclude=False, 
+    # # Method signature. BROKEN
+    # # def upload_passport(self, accessCode='', idFront='',
+    # #                     accessCodeExclude=False, idFrontExclude=False, 
+    # #                     sandBox=False):
+    # user.upload_passport(user.GetAccessCode(), data['passport_good'], sandBox=True)
+
+
+    # time.sleep(30)
+
+
+    # # Method signature. DONE
+    # # def check_upload_passport(self, accessCode='', accessCodeExclude=False, sandBox=False):
+    # user.check_upload_passport(user.GetAccessCode(), sandBox=True)
+
+
+
+    # # Method signature. DONE
+    # # def set_social_networks(self, companyAdminKey='', networks=[],
+    # #                         companyAdminKeyExclude=False, 
+    # #                         networksExclude=False, sandBox=False):
+    # user.set_social_networks(data['company_admin_key'], data['testNetworks'])
+
+
+
+    # # Method signature. DONE
+    # # def set_contract_required(self, companyAdminKey='', isPhoneRequired=True,
+    # #                           isEmailRequired=True, companyAdminKeyExclude=False, 
+    # #                           isPhoneRequiredExclude=False, isEmailRequiredExclude=False,
+    # #                           sandBox=False):
+    # user.set_contract_required(data['company_admin_key'], False, False)
+
+
+    # # Method signature. DONE
+    # # def set_photo_match_per(self, companyAdminKey='', percent=40,
+    # #                         companyAdminKeyExclude=False, 
+    # #                         percentExclude=False, sandBox=False):
+    # user.set_photo_match_per(data['company_admin_key'], 40)
+
+
+
+    # Method signature. 
+    # def set_days_expire(self, companyAdminKey='', days=10,
+    #                     companyAdminKeyExclude=False, daysExclude=False, 
     #                     sandBox=False):
-    user.upload_passport(user.GetAccessCode(), data['passport_good'], sandBox=True)
-
-
-    time.sleep(30)
-
-
-    # Method signature. BROKEN
-    # def check_upload_passport(self, accessCode='', accessCodeExclude=False, sandBox=False):
-    user.check_upload_passport(user.GetAccessCode(), sandBox=True)
-
+    user.set_days_expire(data['company_admin_key'], 10)
 
 # testClass()

@@ -24,9 +24,6 @@ Verify Social Networks end point
     - SocialMediaAccessToken can be any integer, float, or string value.
     - SocialMediaUserId can be any integer, float, or string value.
 
-
-
-
 Upload Id end point (sand box broken)
     - the response is a string instead of a dictionary key:value pair (bug)
 
@@ -38,3 +35,13 @@ Check Upload Id end point (sand box broken)
 
 Upload Passport end point (sand box broken)
     - the response is a string instead of a dictionary key:value pair (bug)
+
+
+
+
+Set Contract Required end point
+    - isPhoneRequired can be any null, integer, float, or string value.
+    - isEmailRequired can be any null, integer, float, or string value.
+
+Set Days to Expire end point
+    - days can be any integer value.
