@@ -1,5 +1,6 @@
 import requests, os, json
 import time, base64
+from copy import deepcopy
 
 requests.packages.urllib3.disable_warnings()
 
@@ -1120,7 +1121,10 @@ class Authenticate:
     #
     def get_quiz(self, accessCodes=[], accessCodesExclude=False,
                  sandBox=False):
-        
+
+        choiceList = []
+        questionId = ''
+
         url = self.environment + data["getQuiz"]
         
         if sandBox == True:
@@ -1146,11 +1150,37 @@ class Authenticate:
         response = requests.request('POST', url, json=body, headers=headers, verify=False)
     
         responseBody = response.json()
-        
-        # if TestOutput == True:
-        #     print('\nget_quiz\n', responseBody)
-        #     print('\nresponse.status_code: ', response.status_code)
-        
+
+        # self.questions = []
+
+        if TestOutput == True:
+            print('\nget_quiz\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+
+        # Capture general quiz data.
+        if response.status_code == 200:
+            self.transactionId = responseBody['transactionID']
+            self.responseUniqueId = responseBody['responseUniqueId']
+            self.quizId = responseBody['quizId']
+
+        # Capture specific quiz data in format below.
+        # [{'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+        # ]
+        for i in range(len(responseBody['question'])):
+            # Get the question Id. 
+            questionId = responseBody['question'][i]['nsquestionId']
+
+            # Then get all the answer id attached to said question id.
+            for x in range(len(responseBody['question'][i]['choice'])):
+                choiceList.append(responseBody['question'][i]['choice'][x]['nschoiceId'])
+            
+            # Now combine the two into a list of dictionary [question:{answers}]
+            self.questions.append({questionId:deepcopy(choiceList)})
+            choiceList.clear()
+
         return responseBody
 
 
@@ -1169,6 +1199,9 @@ class Authenticate:
     
     def GetResponseUniqueId(self):
         return self.responseUniqueId
+    
+    def GetQuestions(self):
+        return self.questions
 
 
 ## Hard coded function to take real DL pictures. Hard coded for security & ease of testing.
@@ -1359,17 +1392,45 @@ def testClass():
     # def get_quiz(self, accessCodes=[], accessCodesExclude=False,
     #              sandBox=False):
     response = user.get_quiz(user.GetAccessCode(), sandBox=True)
-    for keys in response:
-        if keys == 'question':
-            print()
-            print()
-            for i in range(len(response[keys])):
-                print()
-                for inKeys in response[keys][i]:
-                    print(inKeys, ":", response[keys][i][inKeys])
-        else:
-            print(keys, response[keys])
+    response = user.GetQuestions()
+    print(response)
+
+    # for keys in response:
+    #     if keys == 'question':
+    #         print()
+    #         print()
+    #         for i in range(len(response[keys])):
+    #             print()
+    #             for inKeys in response[keys][i]:
+    #                 print(inKeys, ":", response[keys][i][inKeys])
+    #     else:
+    #         print(keys, response[keys])
 
 
 
 testClass()
+
+
+# list1 = []
+# dict1 = {'test':666}
+# list1.append(dict1)
+# list1.append({'random':6666})
+# list1.append({'test':'new data'})
+
+# print(list1)
+# print(len(list1))
+
+
+# list1[0]['test'] = 101010
+
+
+# print(list1)
+# print(len(list1))
+
+
+# [{'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+# ]
+
