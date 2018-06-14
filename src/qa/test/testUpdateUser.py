@@ -228,7 +228,7 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
         self.assertEqual(responseBody['errorMessage'], 
-                          "An unknown error has occurred.",
+                          "ERR: access code has expired or does not exist",
                           msg='test_intAccessCode assert#1 has failed.')
 
 
@@ -248,7 +248,7 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
         self.assertEqual(responseBody['errorMessage'], 
-                          "An unknown error has occurred.",
+                          "ERR: access code has expired or does not exist",
                           msg='test_floatAccessCode assert#1 has failed.')
         
         
@@ -296,13 +296,13 @@ class TestUpdateUser(unittest.TestCase):
 
 
     # *********************************************************************
-    # *                         Address tests                            *
+    # *                         Address tests                             *
     # *********************************************************************
     
     
         
     # Missing Address information from request call.
-    @unittest.skip("Exluding the address does not trigger an error")
+    #@unittest.skip("Exluding the address does not trigger an error")
     def test_missingAddress(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -317,13 +317,13 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              addressExclude = True)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingAddress assert#1 has failed.')
         
         
         
     # Test a null Address.
-    @unittest.skip("Exluding the address does not trigger an error")
+    #@unittest.skip("Exluding the address does not trigger an error")
     def test_nullAddress(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = '', 
@@ -337,7 +337,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_nullAddress assert#1 has failed.')
 
 
