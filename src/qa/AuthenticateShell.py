@@ -1121,7 +1121,6 @@ class Authenticate:
     #
     def get_quiz(self, accessCodes=[], accessCodesExclude=False,
                  sandBox=False):
-
         choiceList = []
         questionId = ''
 
@@ -1151,8 +1150,6 @@ class Authenticate:
     
         responseBody = response.json()
 
-        # self.questions = []
-
         if TestOutput == True:
             print('\nget_quiz\n', responseBody)
             print('\nresponse.status_code: ', response.status_code)
@@ -1180,6 +1177,78 @@ class Authenticate:
             # Now combine the two into a list of dictionary [question:{answers}]
             self.questions.append({questionId:deepcopy(choiceList)})
             choiceList.clear()
+
+        return responseBody
+
+
+
+    ## @fn verify_quiz : This will send in the answers from the quiz received in order to 
+    #                 verify that the user has passed the test.
+    #
+    def verify_quiz(self, accessCode='', quizId='', transactionID='', responseUniqueId='',
+                    answers=[], accessCodeExclude=False, quizIdExclude=False,
+                    transactionIDExclude=False, responseUniqueIdExclude=False,
+                    answersExclude=False, sandBox=False):
+
+        url = self.environment + data["verifyQuiz"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        if quizIdExclude == True:
+            pass
+        elif quizId != '':
+            body['quizId'] = quizId
+        else:
+            body['quizId'] = ''
+
+        if transactionIDExclude == True:
+            pass
+        elif transactionID != '':
+            body['transactionID'] = transactionID
+        else:
+            body['transactionID'] = ''
+
+        if responseUniqueIdExclude == True:
+            pass
+        elif responseUniqueId != '':
+            body['responseUniqueId'] = responseUniqueId
+        else:
+            body['responseUniqueId'] = ''
+
+        if answersExclude == True:
+            pass
+        elif answers != '' and answers != []:
+            body['answers'] = answers
+        else:
+            body['answers'] = []
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        if TestOutput == True:
+            print('\nverify_quiz\n', responseBody)
+            print('\nbody\n', body)
+            print('\nheaders\n', headers)
+            print('\nresponse.status_code: ', response.status_code)
 
         return responseBody
 
@@ -1372,6 +1441,8 @@ def testClass():
 
 
 
+
+
     # # Method signature. WORKING ON THIS STILL
     # # def get_test_result(self, accessCode='', companyAdminKey='', 
     # #                     accessCodeExclude=False, companyAdminKeyExclude=False,
@@ -1388,12 +1459,10 @@ def testClass():
 
 
 
-    # Method signature. 
+    # Method signature.  WORKING ON THIS STILL 
     # def get_quiz(self, accessCodes=[], accessCodesExclude=False,
     #              sandBox=False):
     response = user.get_quiz(user.GetAccessCode(), sandBox=True)
-    response = user.GetQuestions()
-    print(response)
 
     # for keys in response:
     #     if keys == 'question':
@@ -1407,6 +1476,14 @@ def testClass():
     #         print(keys, response[keys])
 
 
+
+    # Method signature.  WORKING ON THIS STILL 
+    # def verify_quiz(self, accessCode='', quizId='', transactionID='', responseUniqueId='',
+    #                     answers=[], accessCodeExclude=False, quizIdExclude=False,
+    #                     transactionIDExclude=False, responseUniqueIdExclude=False,
+    #                     answersExclude=False, sandBox=False):
+    user.verify_quiz(user.GetAccessCode(), user.GetQuizId(), user.GetTransactionId(),
+                     user.GetResponseUniqueId(), [], sandBox=True)
 
 testClass()
 
