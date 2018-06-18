@@ -1249,6 +1249,45 @@ class Authenticate:
 
 
 
+    ## @fn generate_criminal_report : Will generate a criminal background report for the user
+    #
+    def generate_criminal_report(self, accessCode='', accessCodeExclude=False,
+                                  sandBox=False):
+
+        url = self.environment + data["generateCriminalReport"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        if TestOutput == True:
+            print('\ngenerate_criminal_report\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -1311,7 +1350,7 @@ def testClass():
     #             companyAdminKeyExclude=False, countryExclude=False):
     user.create_user(data["firstName"], data["lastName"], data["email"], 
                      data["phone"], data["company_admin_key"], data["country"],
-                     sandBox=False)
+                     sandBox=True)
 
 
     # # Method signature. DONE
@@ -1377,14 +1416,14 @@ def testClass():
     # user.compare_photo(user.GetAccessCode(), data['my_selfie_1'], data['my_selfie_2'])
 
 
-    # front, back = base64Encode()
+    front, back = base64Encode()
 
 
-    # # Method signature. BROKEN
-    # # def upload_id(self, accessCode='', idFront='', idBack='',
-    # #                   accessCodeExclude=False, idBackExclude=False,
-    # #                   idFrontExclude=False, sandBox=False):
-    # user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
+    # Method signature. BROKEN
+    # def upload_id(self, accessCode='', idFront='', idBack='',
+    #                   accessCodeExclude=False, idBackExclude=False,
+    #                   idFrontExclude=False, sandBox=False):
+    user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
 
 
     # # Method signature. BROKEN
@@ -1466,14 +1505,10 @@ def testClass():
 
 
 
-
-
-
-    # Method signature.  WORKING ON THIS STILL 
+    # Method signature. DONE
     # def get_quiz(self, accessCodes='', accessCodesExclude=False,
     #              sandBox=False):
     response = user.get_quiz(user.GetAccessCode(), sandBox=True)
-
     # for keys in response:
     #     if keys == 'question':
     #         print()
@@ -1486,6 +1521,7 @@ def testClass():
     #         print(keys, response[keys])
 
 
+
     # Method signature.  WORKING ON THIS STILL 
     # def verify_quiz(self, accessCode='', quizId='', transactionID='', responseUniqueId='',
     #                     answers=[], accessCodeExclude=False, quizIdExclude=False,
@@ -1495,4 +1531,11 @@ def testClass():
                      user.GetResponseUniqueId(), user.GetAnswers(), sandBox=True)
 
 
-# testClass()
+
+    # Method signature.  WORKING ON THIS STILL 
+    # def generate_criminal_report(self, accessCode='', accessCodeExclude=False,
+    #                               sandBox=False):
+    user.generate_criminal_report(user.GetAccessCode(), sandBox=True)
+
+
+testClass()
