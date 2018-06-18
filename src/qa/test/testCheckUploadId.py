@@ -142,12 +142,12 @@ def suite():
 
     suite.addTest(TestCheckUploadId('test_success'))
 
-    # suite.addTest(TestCheckUploadId('test_missingAccessCode'))
-    # suite.addTest(TestCheckUploadId('test_nullAccessCode'))
-    # suite.addTest(TestCheckUploadId('test_intAccessCode'))
-    # suite.addTest(TestCheckUploadId('test_floatAccessCode'))
-    # suite.addTest(TestCheckUploadId('test_stringAccessCode'))
-    # suite.addTest(TestCheckUploadId('test_arrayAccessCode'))
+    suite.addTest(TestCheckUploadId('test_missingAccessCode'))
+    suite.addTest(TestCheckUploadId('test_nullAccessCode'))
+    suite.addTest(TestCheckUploadId('test_intAccessCode'))
+    suite.addTest(TestCheckUploadId('test_floatAccessCode'))
+    suite.addTest(TestCheckUploadId('test_stringAccessCode'))
+    suite.addTest(TestCheckUploadId('test_arrayAccessCode'))
     
     return suite
     

@@ -1,6 +1,7 @@
 import requests, os, json
 import time, base64
 from copy import deepcopy
+from random import randint
 
 requests.packages.urllib3.disable_warnings()
 
@@ -1119,7 +1120,7 @@ class Authenticate:
     ## @fn get_quiz :  This will return a quiz object for a user if they have 
     #                  enough information to do so
     #
-    def get_quiz(self, accessCodes=[], accessCodesExclude=False,
+    def get_quiz(self, accessCode='', accessCodeExclude=False,
                  sandBox=False):
         choiceList = []
         questionId = ''
@@ -1139,12 +1140,12 @@ class Authenticate:
         
         body = {}
         
-        if accessCodesExclude == True:
+        if accessCodeExclude == True:
             pass
-        elif accessCodes != '':
-            body['accessCodes'] = accessCodes
+        elif accessCode != '':
+            body['accessCode'] = accessCode
         else:
-            body['accessCodes'] = ''
+            body['accessCode'] = ''
 
         response = requests.request('POST', url, json=body, headers=headers, verify=False)
     
@@ -1160,12 +1161,6 @@ class Authenticate:
             self.responseUniqueId = responseBody['responseUniqueId']
             self.quizId = responseBody['quizId']
 
-        # Capture specific quiz data in format below.
-        # [{'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-        # ]
         for i in range(len(responseBody['question'])):
             # Get the question Id. 
             questionId = responseBody['question'][i]['nsquestionId']
@@ -1254,6 +1249,45 @@ class Authenticate:
 
 
 
+    ## @fn generate_criminal_report : Will generate a criminal background report for the user
+    #
+    def generate_criminal_report(self, accessCode='', accessCodeExclude=False,
+                                  sandBox=False):
+
+        url = self.environment + data["generateCriminalReport"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        if TestOutput == True:
+            print('\ngenerate_criminal_report\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
@@ -1271,6 +1305,23 @@ class Authenticate:
     
     def GetQuestions(self):
         return self.questions
+
+    ## Must hit the get_quiz method before this getting method can execute successfully.
+    #
+    def GetAnswers(self):
+        answers = []
+        compose = {}
+
+        test = self.questions
+
+        for i in range(len(test)):
+            for key in test[i]:
+                # print(key, test[i][key])
+                compose[key] = test[i][key][randint(0, 3)]
+                answers.append(deepcopy(compose))
+                compose.clear()
+        return answers
+
 
 
 ## Hard coded function to take real DL pictures. Hard coded for security & ease of testing.
@@ -1299,7 +1350,7 @@ def testClass():
     #             companyAdminKeyExclude=False, countryExclude=False):
     user.create_user(data["firstName"], data["lastName"], data["email"], 
                      data["phone"], data["company_admin_key"], data["country"],
-                     sandBox=False)
+                     sandBox=True)
 
 
     # # Method signature. DONE
@@ -1365,14 +1416,14 @@ def testClass():
     # user.compare_photo(user.GetAccessCode(), data['my_selfie_1'], data['my_selfie_2'])
 
 
-    # front, back = base64Encode()
+    front, back = base64Encode()
 
 
-    # # Method signature. BROKEN
-    # # def upload_id(self, accessCode='', idFront='', idBack='',
-    # #                   accessCodeExclude=False, idBackExclude=False,
-    # #                   idFrontExclude=False, sandBox=False):
-    # user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
+    # Method signature. BROKEN
+    # def upload_id(self, accessCode='', idFront='', idBack='',
+    #                   accessCodeExclude=False, idBackExclude=False,
+    #                   idFrontExclude=False, sandBox=False):
+    user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
 
 
     # # Method signature. BROKEN
@@ -1438,12 +1489,7 @@ def testClass():
 
 
 
-
-
-
-
-
-    # # Method signature. WORKING ON THIS STILL
+    # # Method signature. DONE
     # # def get_test_result(self, accessCode='', companyAdminKey='', 
     # #                     accessCodeExclude=False, companyAdminKeyExclude=False,
     # #                     sandBox=False):
@@ -1451,7 +1497,7 @@ def testClass():
 
 
 
-    # # Method signature.WORKING ON THIS STILL 
+    # # Method signature. DONE
     # # def get_test_results(self, accessCode=[], companyAdminKey='', 
     # #                     accessCodeExclude=False, companyAdminKeyExclude=False,
     # #                     sandBox=False):
@@ -1459,11 +1505,10 @@ def testClass():
 
 
 
-    # Method signature.  WORKING ON THIS STILL 
-    # def get_quiz(self, accessCodes=[], accessCodesExclude=False,
+    # Method signature. DONE
+    # def get_quiz(self, accessCodes='', accessCodesExclude=False,
     #              sandBox=False):
     response = user.get_quiz(user.GetAccessCode(), sandBox=True)
-
     # for keys in response:
     #     if keys == 'question':
     #         print()
@@ -1483,31 +1528,14 @@ def testClass():
     #                     transactionIDExclude=False, responseUniqueIdExclude=False,
     #                     answersExclude=False, sandBox=False):
     user.verify_quiz(user.GetAccessCode(), user.GetQuizId(), user.GetTransactionId(),
-                     user.GetResponseUniqueId(), [], sandBox=True)
+                     user.GetResponseUniqueId(), user.GetAnswers(), sandBox=True)
+
+
+
+    # Method signature.  WORKING ON THIS STILL 
+    # def generate_criminal_report(self, accessCode='', accessCodeExclude=False,
+    #                               sandBox=False):
+    user.generate_criminal_report(user.GetAccessCode(), sandBox=True)
+
 
 testClass()
-
-
-# list1 = []
-# dict1 = {'test':666}
-# list1.append(dict1)
-# list1.append({'random':6666})
-# list1.append({'test':'new data'})
-
-# print(list1)
-# print(len(list1))
-
-
-# list1[0]['test'] = 101010
-
-
-# print(list1)
-# print(len(list1))
-
-
-# [{'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-# ]
-
