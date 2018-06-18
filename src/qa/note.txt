@@ -45,3 +45,6 @@ Set Contract Required end point
 
 Set Days to Expire end point
     - days can be any integer value.
+
+Get Quiz end point
+    - accessCode can be missing from the call or be any null, integer, float, or string value.

@@ -1120,7 +1120,7 @@ class Authenticate:
     ## @fn get_quiz :  This will return a quiz object for a user if they have 
     #                  enough information to do so
     #
-    def get_quiz(self, accessCodes=[], accessCodesExclude=False,
+    def get_quiz(self, accessCode='', accessCodeExclude=False,
                  sandBox=False):
         choiceList = []
         questionId = ''
@@ -1140,12 +1140,12 @@ class Authenticate:
         
         body = {}
         
-        if accessCodesExclude == True:
+        if accessCodeExclude == True:
             pass
-        elif accessCodes != '':
-            body['accessCodes'] = accessCodes
+        elif accessCode != '':
+            body['accessCode'] = accessCode
         else:
-            body['accessCodes'] = ''
+            body['accessCode'] = ''
 
         response = requests.request('POST', url, json=body, headers=headers, verify=False)
     
@@ -1450,12 +1450,7 @@ def testClass():
 
 
 
-
-
-
-
-
-    # # Method signature. WORKING ON THIS STILL
+    # # Method signature. DONE
     # # def get_test_result(self, accessCode='', companyAdminKey='', 
     # #                     accessCodeExclude=False, companyAdminKeyExclude=False,
     # #                     sandBox=False):
@@ -1463,7 +1458,7 @@ def testClass():
 
 
 
-    # # Method signature.WORKING ON THIS STILL 
+    # # Method signature. DONE
     # # def get_test_results(self, accessCode=[], companyAdminKey='', 
     # #                     accessCodeExclude=False, companyAdminKeyExclude=False,
     # #                     sandBox=False):
@@ -1471,8 +1466,11 @@ def testClass():
 
 
 
+
+
+
     # Method signature.  WORKING ON THIS STILL 
-    # def get_quiz(self, accessCodes=[], accessCodesExclude=False,
+    # def get_quiz(self, accessCodes='', accessCodesExclude=False,
     #              sandBox=False):
     response = user.get_quiz(user.GetAccessCode(), sandBox=True)
 
@@ -1498,28 +1496,3 @@ def testClass():
 
 
 # testClass()
-
-
-# list1 = []
-# dict1 = {'test':666}
-# list1.append(dict1)
-# list1.append({'random':6666})
-# list1.append({'test':'new data'})
-
-# print(list1)
-# print(len(list1))
-
-
-# list1[0]['test'] = 101010
-
-
-# print(list1)
-# print(len(list1))
-
-
-# [{'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-# ]
-

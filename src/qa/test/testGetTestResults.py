@@ -21,7 +21,7 @@ import sys, unittest, AuthenticateShell
         companyAdminKey
 
     Test cases
-        Successfully check an uploaded image.
+        Successfully get test results.
 
         AccessCode missing from request call.
         Null AccessCode value. 
