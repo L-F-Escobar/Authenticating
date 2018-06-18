@@ -1,5 +1,6 @@
 import requests, os, json
 import time, base64
+from copy import deepcopy
 
 requests.packages.urllib3.disable_warnings()
 
@@ -47,7 +48,11 @@ class Authenticate:
         self.UserId = ''
         self.AccessCode = ''
         self.environment = env
-        
+        self.quizId = ''
+        self.transactionId = ''
+        self.responseUniqueId = ''
+        self.questions = []
+        self.answers = []
 
 
 
@@ -573,52 +578,6 @@ class Authenticate:
 
 
 
-    ## @fn get_test_result : 
-    #
-    def get_test_result(self, accessCode='', companyAdminKey='',
-                        accessCodeExclude=False, companyAdminKeyExclude=False,
-                        sandBox=False):
-        
-        url = self.environment + data["getTestResult"]
-        
-        if sandBox == True:
-            headers = {
-                'Content-Type' : 'application/json',
-                'authKey' : data["sandBoxAuthKey"]
-            }
-        else:
-            headers = {
-                'Content-Type' : 'application/json',
-                'authKey' : data["authKey"]
-            }
-        
-        body = {}
-        
-        if accessCodeExclude == True:
-            pass
-        elif accessCode != '':
-            body['accessCode'] = accessCode
-        else:
-            body['accessCode'] = ''
-        
-        if companyAdminKeyExclude == True:
-            pass
-        elif companyAdminKey != '':
-            body['companyAdminKey'] = companyAdminKey
-        else:
-            body['companyAdminKey'] = ''
-
-        response = requests.request('POST', url, json=body, headers=headers, verify=False)
-    
-        responseBody = response.json()
-        
-        if TestOutput == True:
-            print('\nget_test_result\n', responseBody)
-            print('\nresponse.status_code: ', response.status_code)
-        
-        return responseBody
-
-
 
     ## @fn check_upload_id : used to determine if the uploadId process has finished.
     #
@@ -1063,11 +1022,255 @@ class Authenticate:
 
 
 
+    ## @fn get_test_result :  This endpoint allow a company to query the user's test results.
+    #
+    def get_test_result(self, accessCode='', companyAdminKey='', 
+                        accessCodeExclude=False, companyAdminKeyExclude=False,
+                        sandBox=False):
+        
+        url = self.environment + data["getTestResult"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        if companyAdminKeyExclude == True:
+            pass
+        elif companyAdminKey != '':
+            body['companyAdminKey'] = companyAdminKey
+        else:
+            body['companyAdminKey'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nget_test_result\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn get_test_results :  This endpoint allow a company to query the user's test results.
+    #
+    def get_test_results(self, accessCodes=[], companyAdminKey='', 
+                        accessCodesExclude=False, companyAdminKeyExclude=False,
+                        sandBox=False):
+        
+        url = self.environment + data["getTestResults"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodesExclude == True:
+            pass
+        elif accessCodes != '' and accessCodes != []:
+            body['accessCodes'] = accessCodes
+        else:
+            body['accessCodes'] = []
+
+        if companyAdminKeyExclude == True:
+            pass
+        elif companyAdminKey != '':
+            body['companyAdminKey'] = companyAdminKey
+        else:
+            body['companyAdminKey'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+        
+        if TestOutput == True:
+            print('\nget_test_results\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+        
+        return responseBody
+
+
+
+    ## @fn get_quiz :  This will return a quiz object for a user if they have 
+    #                  enough information to do so
+    #
+    def get_quiz(self, accessCodes=[], accessCodesExclude=False,
+                 sandBox=False):
+        choiceList = []
+        questionId = ''
+
+        url = self.environment + data["getQuiz"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodesExclude == True:
+            pass
+        elif accessCodes != '':
+            body['accessCodes'] = accessCodes
+        else:
+            body['accessCodes'] = ''
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        if TestOutput == True:
+            print('\nget_quiz\n', responseBody)
+            print('\nresponse.status_code: ', response.status_code)
+
+        # Capture general quiz data.
+        if response.status_code == 200:
+            self.transactionId = responseBody['transactionID']
+            self.responseUniqueId = responseBody['responseUniqueId']
+            self.quizId = responseBody['quizId']
+
+        # Capture specific quiz data in format below.
+        # [{'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+        # ]
+        for i in range(len(responseBody['question'])):
+            # Get the question Id. 
+            questionId = responseBody['question'][i]['nsquestionId']
+
+            # Then get all the answer id attached to said question id.
+            for x in range(len(responseBody['question'][i]['choice'])):
+                choiceList.append(responseBody['question'][i]['choice'][x]['nschoiceId'])
+            
+            # Now combine the two into a list of dictionary [question:{answers}]
+            self.questions.append({questionId:deepcopy(choiceList)})
+            choiceList.clear()
+
+        return responseBody
+
+
+
+    ## @fn verify_quiz : This will send in the answers from the quiz received in order to 
+    #                 verify that the user has passed the test.
+    #
+    def verify_quiz(self, accessCode='', quizId='', transactionID='', responseUniqueId='',
+                    answers=[], accessCodeExclude=False, quizIdExclude=False,
+                    transactionIDExclude=False, responseUniqueIdExclude=False,
+                    answersExclude=False, sandBox=False):
+
+        url = self.environment + data["verifyQuiz"]
+        
+        if sandBox == True:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["sandBoxAuthKey"]
+            }
+        else:
+            headers = {
+                'Content-Type' : 'application/json',
+                'authKey' : data["authKey"]
+            }
+        
+        body = {}
+        
+        if accessCodeExclude == True:
+            pass
+        elif accessCode != '':
+            body['accessCode'] = accessCode
+        else:
+            body['accessCode'] = ''
+
+        if quizIdExclude == True:
+            pass
+        elif quizId != '':
+            body['quizId'] = quizId
+        else:
+            body['quizId'] = ''
+
+        if transactionIDExclude == True:
+            pass
+        elif transactionID != '':
+            body['transactionID'] = transactionID
+        else:
+            body['transactionID'] = ''
+
+        if responseUniqueIdExclude == True:
+            pass
+        elif responseUniqueId != '':
+            body['responseUniqueId'] = responseUniqueId
+        else:
+            body['responseUniqueId'] = ''
+
+        if answersExclude == True:
+            pass
+        elif answers != '' and answers != []:
+            body['answers'] = answers
+        else:
+            body['answers'] = []
+
+        response = requests.request('POST', url, json=body, headers=headers, verify=False)
+    
+        responseBody = response.json()
+
+        if TestOutput == True:
+            print('\nverify_quiz\n', responseBody)
+            print('\nbody\n', body)
+            print('\nheaders\n', headers)
+            print('\nresponse.status_code: ', response.status_code)
+
+        return responseBody
+
+
+
     def GetUserId(self):
         return self.UserId
     
     def GetAccessCode(self):
         return self.AccessCode
+
+    def GetQuizId(self):
+        return self.quizId
+    
+    def GetTransactionId(self):
+        return self.transactionId
+    
+    def GetResponseUniqueId(self):
+        return self.responseUniqueId
+    
+    def GetQuestions(self):
+        return self.questions
 
 
 ## Hard coded function to take real DL pictures. Hard coded for security & ease of testing.
@@ -1110,13 +1313,16 @@ def testClass():
     # user.update_user(user.GetAccessCode(), data["address"], data["city"],
     #                  data["state"], data["zipCode"], data["phone"],
     #                  data["month"], data["day"], data["year"],
-    #                  data["updatedFirstName"], data["updatedLastName"])
+    #                  data["updatedFirstName"], data["updatedLastName"], 
+    #                  sandBox=False)
 
+
+    # Day/Year is still broke - 'snow' works
 
 
     # # Method signature. DONE
     # # def get_user(self, accessCode='', accessCodeExclude=False):             
-    # user.get_user(user.GetAccessCode())
+    # user.get_user(user.GetAccessCode(), sandBox=False)
 
 
 
@@ -1157,12 +1363,6 @@ def testClass():
     # #                   accessCodeExclude=False, img1Exclude=False,
     # #                   img2Exclude=False):
     # user.compare_photo(user.GetAccessCode(), data['my_selfie_1'], data['my_selfie_2'])
-
-
-    # # Method signature. NOT NOT NOT NOT DONE
-    # # def get_test_result(self, accessCode='', companyAdminKey='',
-    # #                     accessCodeExclude=False, companyAdminKeyExclude=False):
-    # user.get_test_result(user.GetAccessCode(), data['company_admin_key'])
 
 
     # front, back = base64Encode()
@@ -1230,10 +1430,84 @@ def testClass():
 
 
 
-    # Method signature. 
-    # def set_days_expire(self, companyAdminKey='', days=10,
-    #                     companyAdminKeyExclude=False, daysExclude=False, 
-    #                     sandBox=False):
-    user.set_days_expire(data['company_admin_key'], 10)
+    # # Method signature. DONE
+    # # def set_days_expire(self, companyAdminKey='', days=10,
+    # #                     companyAdminKeyExclude=False, daysExclude=False, 
+    # #                     sandBox=False):
+    # user.set_days_expire(data['company_admin_key'], 10)
 
-# testClass()
+
+
+
+
+
+
+
+    # # Method signature. WORKING ON THIS STILL
+    # # def get_test_result(self, accessCode='', companyAdminKey='', 
+    # #                     accessCodeExclude=False, companyAdminKeyExclude=False,
+    # #                     sandBox=False):
+    # user.get_test_result(user.GetAccessCode(), data['company_admin_key'], sandBox=True)
+
+
+
+    # # Method signature.WORKING ON THIS STILL 
+    # # def get_test_results(self, accessCode=[], companyAdminKey='', 
+    # #                     accessCodeExclude=False, companyAdminKeyExclude=False,
+    # #                     sandBox=False):
+    # user.get_test_results([user.GetAccessCode(), user.GetAccessCode()], data['company_admin_key'], sandBox=True)
+
+
+
+    # Method signature.  WORKING ON THIS STILL 
+    # def get_quiz(self, accessCodes=[], accessCodesExclude=False,
+    #              sandBox=False):
+    response = user.get_quiz(user.GetAccessCode(), sandBox=True)
+
+    # for keys in response:
+    #     if keys == 'question':
+    #         print()
+    #         print()
+    #         for i in range(len(response[keys])):
+    #             print()
+    #             for inKeys in response[keys][i]:
+    #                 print(inKeys, ":", response[keys][i][inKeys])
+    #     else:
+    #         print(keys, response[keys])
+
+
+
+    # Method signature.  WORKING ON THIS STILL 
+    # def verify_quiz(self, accessCode='', quizId='', transactionID='', responseUniqueId='',
+    #                     answers=[], accessCodeExclude=False, quizIdExclude=False,
+    #                     transactionIDExclude=False, responseUniqueIdExclude=False,
+    #                     answersExclude=False, sandBox=False):
+    user.verify_quiz(user.GetAccessCode(), user.GetQuizId(), user.GetTransactionId(),
+                     user.GetResponseUniqueId(), [], sandBox=True)
+
+testClass()
+
+
+# list1 = []
+# dict1 = {'test':666}
+# list1.append(dict1)
+# list1.append({'random':6666})
+# list1.append({'test':'new data'})
+
+# print(list1)
+# print(len(list1))
+
+
+# list1[0]['test'] = 101010
+
+
+# print(list1)
+# print(len(list1))
+
+
+# [{'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+#  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
+# ]
+
