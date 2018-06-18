@@ -19,6 +19,7 @@ from test import testSetSocialNetworks
 from test import testSetContractRequired
 from test import testSetPhotoMatchPercent
 from test import testSetDaysExpire
+from test import testGetTestResults
 
 # Initialize a test loader & test suite package.
 loader = unittest.TestLoader()
@@ -46,7 +47,8 @@ else:
         # suite.addTests(loader.suiteClass(testUploadIdEnhanced.suite())) # ENDPT IS BROKEN
         # suite.addTests(loader.suiteClass(testCheckUploadId.suite())) # ENDPT IS BROKEN
         # suite.addTests(loader.suiteClass(testUploadPassport.suite())) # ENDPT IS BROKEN
-        suite.addTests(loader.suiteClass(testCheckUploadPassword.suite()))
+        # suite.addTests(loader.suiteClass(testCheckUploadPassword.suite()))
+        suite.addTests(loader.suiteClass(testGetTestResults.suite()))
 
 # Initialize an xml runner.
 testRunner=xmlrunner.XMLTestRunner(output='data/testReports', verbosity=2)

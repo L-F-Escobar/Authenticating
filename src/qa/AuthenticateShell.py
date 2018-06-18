@@ -1,6 +1,7 @@
 import requests, os, json
 import time, base64
 from copy import deepcopy
+from random import randint
 
 requests.packages.urllib3.disable_warnings()
 
@@ -1160,12 +1161,6 @@ class Authenticate:
             self.responseUniqueId = responseBody['responseUniqueId']
             self.quizId = responseBody['quizId']
 
-        # Capture specific quiz data in format below.
-        # [{'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-        #  {'nsquestionId':['nschoiceId', 'nschoiceId', 'nschoiceId', 'nschoiceId']},
-        # ]
         for i in range(len(responseBody['question'])):
             # Get the question Id. 
             questionId = responseBody['question'][i]['nsquestionId']
@@ -1271,6 +1266,23 @@ class Authenticate:
     
     def GetQuestions(self):
         return self.questions
+
+    ## Must hit the get_quiz method before this getting method can execute successfully.
+    #
+    def GetAnswers(self):
+        answers = []
+        compose = {}
+
+        test = self.questions
+
+        for i in range(len(test)):
+            for key in test[i]:
+                # print(key, test[i][key])
+                compose[key] = test[i][key][randint(0, 3)]
+                answers.append(deepcopy(compose))
+                compose.clear()
+        return answers
+
 
 
 ## Hard coded function to take real DL pictures. Hard coded for security & ease of testing.
@@ -1476,16 +1488,16 @@ def testClass():
     #         print(keys, response[keys])
 
 
-
     # Method signature.  WORKING ON THIS STILL 
     # def verify_quiz(self, accessCode='', quizId='', transactionID='', responseUniqueId='',
     #                     answers=[], accessCodeExclude=False, quizIdExclude=False,
     #                     transactionIDExclude=False, responseUniqueIdExclude=False,
     #                     answersExclude=False, sandBox=False):
     user.verify_quiz(user.GetAccessCode(), user.GetQuizId(), user.GetTransactionId(),
-                     user.GetResponseUniqueId(), [], sandBox=True)
+                     user.GetResponseUniqueId(), user.GetAnswers(), sandBox=True)
 
-testClass()
+
+# testClass()
 
 
 # list1 = []
