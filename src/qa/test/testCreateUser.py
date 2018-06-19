@@ -115,14 +115,13 @@ class TestCreateUser(unittest.TestCase):
 
 
     # *********************************************************************
-    # *                         FirstName tests                            *
+    # *                         FirstName tests                           *
     # *********************************************************************
     
     
         
     # Missing FirstName information from request call.
     def test_missingFirstName(self):
-        # Missing FirstName value.
         responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
                                              lastName = AuthenticateShell.data["lastName"], 
                                              email = AuthenticateShell.data["email"], 
@@ -160,7 +159,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], "first name required",
                           msg='test_intFirstName assert#1 has failed.')
 
 
@@ -175,13 +174,12 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], "first name required",
                           msg='test_floatFirstName assert#1 has failed.')
         
         
         
     # Test a string FirstName value call.
-    @unittest.skip("Should always pass by design.")
     def test_stringFirstName(self):
         responseBody = self.user.create_user(firstName = "Will always pass - no need to test", 
                                              lastName = AuthenticateShell.data["lastName"], 
@@ -190,7 +188,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody[''], '',
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_stringFirstName assert#1 has failed.')
 
 
@@ -247,7 +245,6 @@ class TestCreateUser(unittest.TestCase):
     # Test a int LastName.
     @unittest.skip("Validation bug - integer first name")
     def test_intLastName(self):
-        # Int LastName value.
         responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
                                              lastName = 846513581351, 
                                              email = AuthenticateShell.data["email"], 
@@ -276,9 +273,7 @@ class TestCreateUser(unittest.TestCase):
         
         
     # Test a string LastName value call.
-    @unittest.skip("Should always pass by design.")
     def test_stringLastName(self):
-        # String LastName value.
         responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
                                              lastName = 'Should always pass - no need to test.', 
                                              email = AuthenticateShell.data["email"], 
@@ -286,14 +281,13 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_stringLastName assert#1 has failed.')
 
 
 
     # Test an array LastName value call.
     def test_arrayLastName(self):
-        # Array LastName value.
         responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
                                              lastName = ['break it all'], 
                                              email = AuthenticateShell.data["email"], 
@@ -308,7 +302,7 @@ class TestCreateUser(unittest.TestCase):
     
 
     # *********************************************************************
-    # *                         Email tests                            *
+    # *                            Email tests                            *
     # *********************************************************************
     
     
@@ -496,7 +490,7 @@ class TestCreateUser(unittest.TestCase):
 
 
     # *********************************************************************
-    # *                         CompanyAdminKey tests                            *
+    # *                         CompanyAdminKey tests                     *
     # *********************************************************************
     
     

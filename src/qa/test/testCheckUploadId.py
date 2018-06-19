@@ -81,7 +81,7 @@ class TestCheckUploadId(unittest.TestCase):
                                                  accessCodeExclude = True,
                                                  sandBox=True)
 
-        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
+        self.assertEqual(responseBody['errorMessage'], "access code is required",
                          msg='test_missingAccessCode assert#1 has failed.')
         
         
@@ -91,7 +91,7 @@ class TestCheckUploadId(unittest.TestCase):
         responseBody = self.user.check_upload_id(accessCode = '',
                                                   sandBox = True)
 
-        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
+        self.assertEqual(responseBody['errorMessage'], "access code is required",
                           msg='test_nullAccessCode assert#1 has failed.')
 
 
@@ -101,7 +101,7 @@ class TestCheckUploadId(unittest.TestCase):
         responseBody = self.user.check_upload_id(accessCode = 1111111111111,
                                                   sandBox = True)
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_intAccessCode assert#1 has failed.')
 
 
@@ -111,7 +111,7 @@ class TestCheckUploadId(unittest.TestCase):
         responseBody = self.user.check_upload_id(accessCode = 111111111111.1,
                                                   sandBox = True)
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_floatAccessCode assert#1 has failed.')
         
         

@@ -175,7 +175,7 @@ class TestSetContractRequired(unittest.TestCase):
                                                         isPhoneRequired = '', 
                                                         isEmailRequired = False)
 
-        self.assertEqual(responseBody['successful'], True,
+        self.assertEqual(responseBody['errorMessage'], 'isPhoneRequired field must be either true or false',
                           msg='test_nullIsPhoneRequired assert#1 has failed.')
 
 
@@ -186,7 +186,7 @@ class TestSetContractRequired(unittest.TestCase):
                                                         isPhoneRequired = 123465, 
                                                         isEmailRequired = False)
 
-        self.assertEqual(responseBody['successful'], True,
+        self.assertEqual(responseBody['errorMessage'], 'isPhoneRequired field must be either true or false',
                           msg='test_intIsPhoneRequired assert#1 has failed.')
 
 
@@ -197,7 +197,7 @@ class TestSetContractRequired(unittest.TestCase):
                                                         isPhoneRequired = 855.21651, 
                                                         isEmailRequired = False)
 
-        self.assertEqual(responseBody['successful'], True,
+        self.assertEqual(responseBody['errorMessage'], 'isPhoneRequired field must be either true or false',
                           msg='test_floatIsPhoneRequired assert#1 has failed.')
         
         
@@ -208,7 +208,7 @@ class TestSetContractRequired(unittest.TestCase):
                                                         isPhoneRequired = 'False', 
                                                         isEmailRequired = False)
 
-        self.assertEqual(responseBody['successful'], True,
+        self.assertEqual(responseBody['errorMessage'], 'isPhoneRequired field must be either true or false',
                           msg='test_stringIsPhoneRequired assert#1 has failed.')
 
 
@@ -249,7 +249,7 @@ class TestSetContractRequired(unittest.TestCase):
                                                         isPhoneRequired = False, 
                                                         isEmailRequired = '')
 
-        self.assertEqual(responseBody['successful'], True,
+        self.assertEqual(responseBody['errorMessage'], 'isEmailRequired field must be either true or false',
                           msg='test_nullIsEmailRequired assert#1 has failed.')
 
 
@@ -260,7 +260,7 @@ class TestSetContractRequired(unittest.TestCase):
                                                         isPhoneRequired = False, 
                                                         isEmailRequired = 123456)
 
-        self.assertEqual(responseBody['successful'], True,
+        self.assertEqual(responseBody['errorMessage'], 'isEmailRequired field must be either true or false',
                           msg='test_intIsEmailRequired assert#1 has failed.')
 
 
@@ -271,7 +271,7 @@ class TestSetContractRequired(unittest.TestCase):
                                                         isPhoneRequired = False, 
                                                         isEmailRequired = 855.258)
 
-        self.assertEqual(responseBody['successful'], True,
+        self.assertEqual(responseBody['errorMessage'], 'isEmailRequired field must be either true or false',
                           msg='test_floatIsEmailRequired assert#1 has failed.')
         
         
@@ -282,7 +282,7 @@ class TestSetContractRequired(unittest.TestCase):
                                                         isPhoneRequired = False, 
                                                         isEmailRequired = 'False')
 
-        self.assertEqual(responseBody['successful'], True,
+        self.assertEqual(responseBody['errorMessage'], 'isEmailRequired field must be either true or false',
                           msg='test_stringIsEmailRequired assert#1 has failed.')
 
 
