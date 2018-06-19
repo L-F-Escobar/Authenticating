@@ -3,7 +3,8 @@ import sys, unittest, AuthenticateShell
 '''
     Authenticate update user end point.
     
-    Purpose - allows an active user to update their account information
+    Purpose - Allows an active user to update their account information.
+              If fields are ommitted or null, they will not be updated.
     
     Notes - 
 
@@ -57,7 +58,7 @@ import sys, unittest, AuthenticateShell
         Null State value. 
         Int State value.    
         Float State value.   
-        String State value.
+        String State value x 2.
         Array State value. 
 
         ZipCode missing from request call.
@@ -302,7 +303,6 @@ class TestUpdateUser(unittest.TestCase):
     
         
     # Missing Address information from request call.
-    #@unittest.skip("Exluding the address does not trigger an error")
     def test_missingAddress(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -323,7 +323,6 @@ class TestUpdateUser(unittest.TestCase):
         
         
     # Test a null Address.
-    #@unittest.skip("Exluding the address does not trigger an error")
     def test_nullAddress(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = '', 
@@ -343,7 +342,6 @@ class TestUpdateUser(unittest.TestCase):
 
 
     # Test a int Address.
-    @unittest.skip("Address value can be an integer currently")
     def test_intAddress(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = 12345123649874516789, 
@@ -357,13 +355,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_intAddress assert#1 has failed.')
 
 
 
     # Test a float Address.
-    @unittest.skip("Address value can be an float currently")
     def test_floatAddress(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = 1111111111111.11111111111111111111, 
@@ -377,13 +374,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_floatAddress assert#1 has failed.')
         
         
         
     # Test a string Address value call.
-    @unittest.skip("Should always pass by design.")
     def test_stringAddress(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = 'Should pass street', 
@@ -397,7 +393,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], '',
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_stringAddress assert#1 has failed.')
 
 
@@ -429,7 +425,6 @@ class TestUpdateUser(unittest.TestCase):
     
         
     # Missing City information from request call.
-    @unittest.skip("Exluding the city does not trigger an error")
     def test_missingCity(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -444,13 +439,12 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              cityExclude = True)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingCity assert#1 has failed.')
         
         
         
     # Test a null City.
-    @unittest.skip("Exluding the city does not trigger an error")
     def test_nullCity(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -464,13 +458,13 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_nullCity assert#1 has failed.')
 
 
 
     # Test a int City.
-    @unittest.skip("City value can be an integer currently")
+    #@unittest.skip("City value can be an integer currently")
     def test_intCity(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -484,13 +478,13 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_intCity assert#1 has failed.')
 
 
 
     # Test a float City.
-    @unittest.skip("City value can be an float currently")
+    #@unittest.skip("City value can be an float currently")
     def test_floatCity(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -504,13 +498,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_floatCity assert#1 has failed.')
         
         
         
     # Test a string City value call.
-    @unittest.skip("Should always pass by design.")
     def test_stringCity(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -524,7 +517,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], '',
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_stringCity assert#1 has failed.')
 
 
@@ -556,7 +549,6 @@ class TestUpdateUser(unittest.TestCase):
     
         
     # Missing State information from request call.
-    @unittest.skip("Exluding the state does not trigger an error")
     def test_missingState(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -571,13 +563,12 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              stateExclude = True)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingState assert#1 has failed.')
         
         
         
     # Test a null State.
-    @unittest.skip("Exluding the city does not trigger an error")
     def test_nullState(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -591,13 +582,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid two digit postal(state) code',
                           msg='test_nullState assert#1 has failed.')
 
 
 
     # Test a int State.
-    @unittest.skip("State value can be any integer currently")
     def test_intState(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -611,13 +601,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid state',
                           msg='test_intState assert#1 has failed.')
 
 
 
     # Test a float State.
-    @unittest.skip("State value can be any float currently")
     def test_floatState(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -631,13 +620,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid state',
                           msg='test_floatState assert#1 has failed.')
         
         
         
     # Test a string State value call.
-    @unittest.skip("Should always pass by design.")
     def test_stringState(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -651,8 +639,27 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], '',
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid state',
                           msg='test_stringState assert#1 has failed.')
+
+        
+
+    # Test a string State value call.
+    def test_stringStateTwo(self):
+        responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
+                                             address = AuthenticateShell.data["address"], 
+                                             city = AuthenticateShell.data["city"],
+                                             state = 'CA', 
+                                             zipCode = AuthenticateShell.data["zipCode"], 
+                                             phone = AuthenticateShell.data["phone"],
+                                             month = AuthenticateShell.data["month"], 
+                                             day = AuthenticateShell.data["day"], 
+                                             year = AuthenticateShell.data["year"],
+                                             firstName = AuthenticateShell.data["updatedFirstName"], 
+                                             lastName = AuthenticateShell.data["updatedLastName"])
+
+        self.assertEqual(responseBody['successful'], True,
+                          msg='test_stringStateTwo assert#1 has failed.')
 
 
 
@@ -685,7 +692,6 @@ class TestUpdateUser(unittest.TestCase):
     
         
     # Missing ZipCode information from request call.
-    @unittest.skip("Exluding the zipCode does not trigger an error")
     def test_missingZipCode(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -700,13 +706,12 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              zipCodeExclude = True)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingZipCode assert#1 has failed.')
         
         
         
     # Test a null ZipCode.
-    @unittest.skip("Exluding the zipCode does not trigger an error")
     def test_nullZipCode(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -720,13 +725,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid zip code',
                           msg='test_nullZipCode assert#1 has failed.')
 
 
 
     # Test a int ZipCode.
-    @unittest.skip("ZipCode value can be any integer currently")
     def test_intZipCode(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -740,13 +744,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid zip code',
                           msg='test_intZipCode assert#1 has failed.')
 
 
 
     # Test a float ZipCode.
-    @unittest.skip("ZipCode value can be any float currently")
     def test_floatZipCode(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -760,13 +763,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid zip code',
                           msg='test_floatZipCode assert#1 has failed.')
         
         
         
     # Test a string ZipCode value call.
-    @unittest.skip("Should always pass by design.")
     def test_stringZipCode(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -780,7 +782,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], '',
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid zip code',
                           msg='test_stringZipCode assert#1 has failed.')
 
 
@@ -812,7 +814,6 @@ class TestUpdateUser(unittest.TestCase):
     
         
     # Missing Phone information from request call.
-    @unittest.skip("Exluding phone does not trigger an error")
     def test_missingPhone(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -827,13 +828,12 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              phoneExclude = True)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingPhone assert#1 has failed.')
         
         
         
     # Test a null Phone.
-    @unittest.skip("Exluding phone does not trigger an error")
     def test_nullPhone(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -847,13 +847,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid phone number',
                           msg='test_nullPhone assert#1 has failed.')
 
 
 
     # Test a int Phone.
-    @unittest.skip("Phone value can be any integer currently")
     def test_intPhone(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -867,13 +866,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid phone number',
                           msg='test_intPhone assert#1 has failed.')
 
 
 
     # Test a float Phone.
-    @unittest.skip("Phone value can be any float currently")
     def test_floatPhone(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -887,13 +885,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid phone number',
                           msg='test_floatPhone assert#1 has failed.')
         
         
         
     # Test a string Phone value call.
-    @unittest.skip("Phone value can be any string currently")
     def test_stringPhone(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -907,7 +904,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], '',
+        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid phone number',
                           msg='test_stringPhone assert#1 has failed.')
 
 
@@ -939,7 +936,6 @@ class TestUpdateUser(unittest.TestCase):
     
         
     # Missing Month information from request call.
-    @unittest.skip("Exluding month does not trigger an error")
     def test_missingMonth(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -954,13 +950,12 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              monthExclude = True)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingMonth assert#1 has failed.')
         
         
         
     # Test a null Month.
-    @unittest.skip("Exluding month does not trigger an error")
     def test_nullMonth(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -974,13 +969,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_nullMonth assert#1 has failed.')
 
 
 
     # Test a int Month.
-    @unittest.skip("Month value can be any integer currently")
     def test_intMonth(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -994,13 +988,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_intMonth assert#1 has failed.')
 
 
 
     # Test a float Month.
-    @unittest.skip("Month value can be any float currently")
     def test_floatMonth(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1014,13 +1007,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_floatMonth assert#1 has failed.')
         
         
         
     # Test a string Month value call.
-    @unittest.skip("Month value can be any string currently")
     def test_stringMonth(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1034,7 +1026,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], '',
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_stringMonth assert#1 has failed.')
 
 
@@ -1068,7 +1060,6 @@ class TestUpdateUser(unittest.TestCase):
     
         
     # Missing Day information from request call.
-    @unittest.skip("Exluding day does not trigger an error")
     def test_missingDay(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1083,13 +1074,12 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              dayExclude = True)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingDay assert#1 has failed.')
         
         
         
     # Test a null Day.
-    @unittest.skip("Exluding day does not trigger an error")
     def test_nullDay(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1103,13 +1093,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_nullDay assert#1 has failed.')
 
 
 
     # Test a int Day.
-    @unittest.skip("Day value can be any integer currently")
     def test_intDay(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1123,13 +1112,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_intDay assert#1 has failed.')
 
 
 
     # Test a float Day.
-    @unittest.skip("Day value can be any float currently")
     def test_floatDay(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1143,13 +1131,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_floatDay assert#1 has failed.')
         
         
         
     # Test a string Day value call.
-    @unittest.skip("Day value can be any string currently")
     def test_stringDay(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1163,7 +1150,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], '',
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_stringDay assert#1 has failed.')
 
 
@@ -1195,7 +1182,6 @@ class TestUpdateUser(unittest.TestCase):
     
         
     # Missing Year information from request call.
-    @unittest.skip("Exluding year does not trigger an error")
     def test_missingYear(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1210,13 +1196,12 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              yearExclude = True)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingYear assert#1 has failed.')
         
         
         
     # Test a null Year.
-    @unittest.skip("Exluding year does not trigger an error")
     def test_nullYear(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1230,13 +1215,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_nullYear assert#1 has failed.')
 
 
 
     # Test a int Year.
-    @unittest.skip("Year value can be any integer currently")
     def test_intYear(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1250,13 +1234,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_intYear assert#1 has failed.')
 
 
 
     # Test a float Year.
-    @unittest.skip("Year value can be any float currently")
     def test_floatYear(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1270,13 +1253,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_floatYear assert#1 has failed.')
         
         
         
     # Test a string Year value call.
-    @unittest.skip("Year value can be any string currently")
     def test_stringYear(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1290,7 +1272,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], '',
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_stringYear assert#1 has failed.')
 
 
@@ -1322,7 +1304,6 @@ class TestUpdateUser(unittest.TestCase):
     
         
     # Missing FirstName information from request call.
-    @unittest.skip("Exluding firstName does not trigger an error")
     def test_missingFirstName(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1337,13 +1318,12 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              firstNameExclude = True)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingFirstName assert#1 has failed.')
         
         
         
     # Test a null FirstName.
-    @unittest.skip("Exluding firstName does not trigger an error")
     def test_nullFirstName(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1357,13 +1337,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = '', 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_nullFirstName assert#1 has failed.')
 
 
 
     # Test a int FirstName.
-    @unittest.skip("FirstName value can be any integer currently")
     def test_intFirstName(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1377,13 +1356,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = 666666666666666666666666, 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_intFirstName assert#1 has failed.')
 
 
 
     # Test a float FirstName.
-    @unittest.skip("FirstName value can be any float currently")
     def test_floatFirstName(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1397,13 +1375,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = 6.6666666666666, 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_floatFirstName assert#1 has failed.')
         
         
         
     # Test a string FirstName value call.
-    @unittest.skip("Always pass by design")
     def test_stringFirstName(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1417,7 +1394,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = 'AuthenticateShell.data["updatedFirstName"]', 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody[''], '',
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_stringFirstName assert#1 has failed.')
 
 
@@ -1448,7 +1425,6 @@ class TestUpdateUser(unittest.TestCase):
     
         
     # Missing LastName information from request call.
-    @unittest.skip("Exluding firstName does not trigger an error")
     def test_missingLastName(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1463,13 +1439,12 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              lastNameExclude = True)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingLastName assert#1 has failed.')
         
         
         
     # Test a null LastName.
-    @unittest.skip("Exluding firstName does not trigger an error")
     def test_nullLastName(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1483,13 +1458,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = '')
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_nullLastName assert#1 has failed.')
 
 
 
     # Test a int LastName.
-    @unittest.skip("LastName value can be any integer currently")
     def test_intLastName(self):
         # Int LastName value.
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
@@ -1504,13 +1478,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = 555555555555555555555)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_intLastName assert#1 has failed.')
 
 
 
     # Test a float LastName.
-    @unittest.skip("LastName value can be any float currently")
     def test_floatLastName(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1524,13 +1497,12 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = 55555555.5555555555)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_floatLastName assert#1 has failed.')
         
         
         
     # Test a string LastName value call.
-    @unittest.skip("Should always pass by design.")
     def test_stringLastName(self):
         responseBody = self.user.update_user(accessCode = self.user.GetAccessCode(), 
                                              address = AuthenticateShell.data["address"], 
@@ -1544,7 +1516,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = 'AuthenticateShell.data["updatedLastName"]')
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_stringLastName assert#1 has failed.')
 
 
@@ -1599,6 +1571,7 @@ def suite():
     suite.addTest(TestUpdateUser('test_intState'))
     suite.addTest(TestUpdateUser('test_floatState'))
     suite.addTest(TestUpdateUser('test_stringState'))
+    suite.addTest(TestUpdateUser('test_stringStateTwo'))
     suite.addTest(TestUpdateUser('test_arrayState'))
 
     suite.addTest(TestUpdateUser('test_missingZipCode'))

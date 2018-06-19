@@ -668,7 +668,6 @@ class Authenticate:
         # resultMessage == key
         if TestOutput == True:
             print('\nupload_id\n', responseBody)
-            print('\nresponse.text\n', response.text)
             print('\nresponse.status_code: ', response.status_code)
         
         return responseBody
@@ -1505,37 +1504,37 @@ def testClass():
 
 
 
-    # Method signature. DONE
-    # def get_quiz(self, accessCodes='', accessCodesExclude=False,
-    #              sandBox=False):
-    response = user.get_quiz(user.GetAccessCode(), sandBox=True)
-    # for keys in response:
-    #     if keys == 'question':
-    #         print()
-    #         print()
-    #         for i in range(len(response[keys])):
-    #             print()
-    #             for inKeys in response[keys][i]:
-    #                 print(inKeys, ":", response[keys][i][inKeys])
-    #     else:
-    #         print(keys, response[keys])
+    # # Method signature. DONE
+    # # def get_quiz(self, accessCodes='', accessCodesExclude=False,
+    # #              sandBox=False):
+    # response = user.get_quiz(user.GetAccessCode(), sandBox=True)
+    # # for keys in response:
+    # #     if keys == 'question':
+    # #         print()
+    # #         print()
+    # #         for i in range(len(response[keys])):
+    # #             print()
+    # #             for inKeys in response[keys][i]:
+    # #                 print(inKeys, ":", response[keys][i][inKeys])
+    # #     else:
+    # #         print(keys, response[keys])
 
 
 
-    # Method signature.  WORKING ON THIS STILL 
-    # def verify_quiz(self, accessCode='', quizId='', transactionID='', responseUniqueId='',
-    #                     answers=[], accessCodeExclude=False, quizIdExclude=False,
-    #                     transactionIDExclude=False, responseUniqueIdExclude=False,
-    #                     answersExclude=False, sandBox=False):
-    user.verify_quiz(user.GetAccessCode(), user.GetQuizId(), user.GetTransactionId(),
-                     user.GetResponseUniqueId(), user.GetAnswers(), sandBox=True)
+    # # Method signature.  WORKING ON THIS STILL 
+    # # def verify_quiz(self, accessCode='', quizId='', transactionID='', responseUniqueId='',
+    # #                     answers=[], accessCodeExclude=False, quizIdExclude=False,
+    # #                     transactionIDExclude=False, responseUniqueIdExclude=False,
+    # #                     answersExclude=False, sandBox=False):
+    # user.verify_quiz(user.GetAccessCode(), user.GetQuizId(), user.GetTransactionId(),
+    #                  user.GetResponseUniqueId(), user.GetAnswers(), sandBox=True)
 
 
 
-    # Method signature.  WORKING ON THIS STILL 
-    # def generate_criminal_report(self, accessCode='', accessCodeExclude=False,
-    #                               sandBox=False):
-    user.generate_criminal_report(user.GetAccessCode(), sandBox=True)
+    # # Method signature.  WORKING ON THIS STILL 
+    # # def generate_criminal_report(self, accessCode='', accessCodeExclude=False,
+    # #                               sandBox=False):
+    # user.generate_criminal_report(user.GetAccessCode(), sandBox=True)
 
 
-testClass()
+# testClass()

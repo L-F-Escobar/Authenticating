@@ -49,7 +49,7 @@ class TestGetAvailableSocialNetworks(unittest.TestCase):
 
 
 
-    # Successfully update a user.
+    # Successfully get available social networks.
     def test_success(self):
         responseBody = self.user.get_available_social_networks(accessCode = self.user.GetAccessCode())
 

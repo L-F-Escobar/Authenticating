@@ -126,7 +126,7 @@ class TestVerifySocialNetworks(unittest.TestCase):
                                                        socialMediaAccessToken = AuthenticateShell.data['socialMediaAccessToken'], 
                                                        socialMediaUserId = AuthenticateShell.data['socialMediaUserId'])
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_intAccessCode assert#1 has failed.')
 
 
@@ -138,7 +138,7 @@ class TestVerifySocialNetworks(unittest.TestCase):
                                                        socialMediaAccessToken = AuthenticateShell.data['socialMediaAccessToken'], 
                                                        socialMediaUserId = AuthenticateShell.data['socialMediaUserId'])
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_floatAccessCode assert#1 has failed.')
         
         
@@ -200,40 +200,40 @@ class TestVerifySocialNetworks(unittest.TestCase):
 
 
     # Test a int Network.
-    @unittest.skip("Network value can be any integer value (BUG)")
+    #@unittest.skip("Network value can be any integer value (BUG)")
     def test_intNetwork(self):
         responseBody = self.user.verify_social_network(accessCode = self.user.GetAccessCode(), 
                                                        network = 11111111111111, 
                                                        socialMediaAccessToken = AuthenticateShell.data['socialMediaAccessToken'], 
                                                        socialMediaUserId = AuthenticateShell.data['socialMediaUserId'])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_intNetwork assert#1 has failed.')
 
 
 
     # Test a float Network.
-    @unittest.skip("Network value can be any float value (BUG)")
+    #@unittest.skip("Network value can be any float value (BUG)")
     def test_floatNetwork(self):
         responseBody = self.user.verify_social_network(accessCode = self.user.GetAccessCode(), 
                                                        network = 1111.1111111111, 
                                                        socialMediaAccessToken = AuthenticateShell.data['socialMediaAccessToken'], 
                                                        socialMediaUserId = AuthenticateShell.data['socialMediaUserId'])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_floatNetwork assert#1 has failed.')
         
         
         
     # Test a string Network value call.
-    @unittest.skip("Network value can be any string value (BUG)")
+    #@unittest.skip("Network value can be any string value (BUG)")
     def test_stringNetwork(self):
         responseBody = self.user.verify_social_network(accessCode = self.user.GetAccessCode(), 
                                                        network = "AuthenticateShell.data['network']", 
                                                        socialMediaAccessToken = AuthenticateShell.data['socialMediaAccessToken'], 
                                                        socialMediaUserId = AuthenticateShell.data['socialMediaUserId'])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_stringNetwork assert#1 has failed.')
 
 
@@ -286,40 +286,40 @@ class TestVerifySocialNetworks(unittest.TestCase):
 
 
     # Test a int SocialMediaAccessToken.
-    @unittest.skip("socialMediaAccessToken value can be any integer value (BUG)")
+    #@unittest.skip("socialMediaAccessToken value can be any integer value (BUG)")
     def test_intSocialMediaAccessToken(self):
         responseBody = self.user.verify_social_network(accessCode = self.user.GetAccessCode(), 
                                                        network = AuthenticateShell.data['network'], 
                                                        socialMediaAccessToken = 123852, 
                                                        socialMediaUserId = AuthenticateShell.data['socialMediaUserId'])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], False,
                           msg='test_intSocialMediaAccessToken assert#1 has failed.')
 
 
 
     # Test a float SocialMediaAccessToken.
-    @unittest.skip("socialMediaAccessToken value can be any float value (BUG)")
+    #@unittest.skip("socialMediaAccessToken value can be any float value (BUG)")
     def test_floatSocialMediaAccessToken(self):
         responseBody = self.user.verify_social_network(accessCode = self.user.GetAccessCode(), 
                                                        network = AuthenticateShell.data['network'], 
                                                        socialMediaAccessToken = 1.23852, 
                                                        socialMediaUserId = AuthenticateShell.data['socialMediaUserId'])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], False,
                           msg='test_floatSocialMediaAccessToken assert#1 has failed.')
         
         
         
     # Test a string SocialMediaAccessToken value call.
-    @unittest.skip("socialMediaAccessToken value can be any string value (BUG)")
+    #@unittest.skip("socialMediaAccessToken value can be any string value (BUG)")
     def test_stringSocialMediaAccessToken(self):
         responseBody = self.user.verify_social_network(accessCode = self.user.GetAccessCode(), 
                                                        network = AuthenticateShell.data['network'], 
                                                        socialMediaAccessToken = "AuthenticateShell.data['socialMediaAccessToken']", 
                                                        socialMediaUserId = AuthenticateShell.data['socialMediaUserId'])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], False,
                           msg='test_stringSocialMediaAccessToken assert#1 has failed.')
 
 
@@ -371,40 +371,40 @@ class TestVerifySocialNetworks(unittest.TestCase):
 
 
     # Test a int SocialMediaUserId.
-    @unittest.skip("SocialMediaUserId value can be any intger value (BUG)")
+    #@unittest.skip("SocialMediaUserId value can be any intger value (BUG)")
     def test_intSocialMediaUserId(self):
         responseBody = self.user.verify_social_network(accessCode = self.user.GetAccessCode(), 
                                                        network = AuthenticateShell.data['network'], 
                                                        socialMediaAccessToken = AuthenticateShell.data['socialMediaAccessToken'], 
                                                        socialMediaUserId = 656666666666666)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], False,
                           msg='test_intSocialMediaUserId assert#1 has failed.')
 
 
 
     # Test a float SocialMediaUserId.
-    @unittest.skip("SocialMediaUserId value can be any float value (BUG)")
+    #@unittest.skip("SocialMediaUserId value can be any float value (BUG)")
     def test_floatSocialMediaUserId(self):
         responseBody = self.user.verify_social_network(accessCode = self.user.GetAccessCode(), 
                                                        network = AuthenticateShell.data['network'], 
                                                        socialMediaAccessToken = AuthenticateShell.data['socialMediaAccessToken'], 
                                                        socialMediaUserId = 6.66666666666666)
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], False,
                           msg='test_floatSocialMediaUserId assert#1 has failed.')
         
         
         
     # Test a string SocialMediaUserId value call.
-    @unittest.skip("SocialMediaUserId value can be any string value (BUG)")
+    #@unittest.skip("SocialMediaUserId value can be any string value (BUG)")
     def test_stringSocialMediaUserId(self):
         responseBody = self.user.verify_social_network(accessCode = self.user.GetAccessCode(), 
                                                        network = AuthenticateShell.data['network'], 
                                                        socialMediaAccessToken = AuthenticateShell.data['socialMediaAccessToken'], 
                                                        socialMediaUserId = "AuthenticateShell.data['socialMediaUserId']")
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], False,
                           msg='test_stringSocialMediaUserId assert#1 has failed.')
 
 

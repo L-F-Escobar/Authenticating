@@ -11,8 +11,6 @@ import sys, unittest, AuthenticateShell
                       accessCodeExclude=False, idBackExclude=False,
                       idFrontExclude=False, sandBox=False):
 
-    Note: THIS END POINT IS BROKEN DUE TO SAND BOXING.
-
     Required:
         accessCode
         idFront
@@ -82,184 +80,241 @@ class TestUploadId(unittest.TestCase):
 
 
 
-    # # *********************************************************************
-    # # *                         AccessCode tests                          *
-    # # *********************************************************************
+    # *********************************************************************
+    # *                         AccessCode tests                          *
+    # *********************************************************************
     
     
         
-    # # Missing AccessCode information from request call.
-    # def test_missingAccessCode(self):
-    #     responseBody = self.user.
+    # Missing AccessCode information from request call.
+    def test_missingAccessCode(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = self.frontId, 
+                                           idBack = self.backId,
+                                           sandBox=True,
+                                           accessCodeExclude = True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "please submit access number",
-    #                      msg='test_missingAccessCode assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], 'please submit access code',
+                         msg='test_missingAccessCode assert#1 has failed.')
         
         
         
-    # # Test a null AccessCode.
-    # def test_nullAccessCode(self):
-    #     responseBody = self.user.
+    # Test a null AccessCode.
+    def test_nullAccessCode(self):
+        responseBody = self.user.upload_id(accessCode = '', 
+                                           idFront = self.frontId, 
+                                           idBack = self.backId,
+                                           sandBox=True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "please submit access number",
-    #                       msg='test_nullAccessCode assert#1 has failed.')
-
-
-
-    # # Test a int AccessCode.
-    # def test_intAccessCode(self):
-    #     responseBody = self.user.
-
-    #     self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
-    #                       msg='test_intAccessCode assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], 'please submit access code',
+                          msg='test_nullAccessCode assert#1 has failed.')
 
 
 
-    # # Test a float AccessCode.
-    # def test_floatAccessCode(self):
-    #     responseBody = self.user.
+    # Test a int AccessCode.
+    def test_intAccessCode(self):
+        responseBody = self.user.upload_id(accessCode = 12, 
+                                           idFront = self.frontId, 
+                                           idBack = self.backId,
+                                           sandBox=True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
-    #                       msg='test_floatAccessCode assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], 'access code has expired or does not exist',
+                          msg='test_intAccessCode assert#1 has failed.')
+
+
+
+    # Test a float AccessCode.
+    def test_floatAccessCode(self):
+        responseBody = self.user.upload_id(accessCode = 1.2, 
+                                           idFront = self.frontId, 
+                                           idBack = self.backId,
+                                           sandBox=True)
+
+        self.assertEqual(responseBody['errorMessage'], 'access code has expired or does not exist',
+                          msg='test_floatAccessCode assert#1 has failed.')
         
         
         
-    # # Test a string AccessCode value call.
-    # def test_stringAccessCode(self):
-    #     responseBody = self.user.
+    # Test a string AccessCode value call.
+    def test_stringAccessCode(self):
+        responseBody = self.user.upload_id(accessCode = 'self.user.GetAccessCode()', 
+                                           idFront = self.frontId, 
+                                           idBack = self.backId,
+                                           sandBox=True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
-    #                       msg='test_stringAccessCode assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], 'access code has expired or does not exist',
+                          msg='test_stringAccessCode assert#1 has failed.')
 
 
 
-    # # Test an array AccessCode value call.
-    # def test_arrayAccessCode(self):
-    #     responseBody = self.user.
+    # Test an array AccessCode value call.
+    def test_arrayAccessCode(self):
+        responseBody = self.user.upload_id(accessCode = [], 
+                                           idFront = self.frontId, 
+                                           idBack = self.backId,
+                                           sandBox=True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
-    #                       msg='test_arrayAccessCode assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+                          msg='test_arrayAccessCode assert#1 has failed.')
 
 
     
-    # # *********************************************************************
-    # # *                          idFront tests                               *
-    # # *********************************************************************
+    # *********************************************************************
+    # *                          idFront tests                            *
+    # *********************************************************************
     
     
         
-    # # Missing idFront information from request call.
-    # def test_missingIdFront(self):
-    #     responseBody = self.user.
+    # Missing idFront information from request call.
+    def test_missingIdFront(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = self.frontId, 
+                                           idBack = self.backId,
+                                           sandBox=True,
+                                           idFrontExclude = True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "please submit image 1",
-    #                      msg='test_missingIdFront assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], "please submit id Front",
+                         msg='test_missingIdFront assert#1 has failed.')
         
         
         
-    # # Test a null IdFront.
-    # def test_nullIdFront(self):
-    #     responseBody = self.user.
+    # Test a null IdFront.
+    def test_nullIdFront(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = '', 
+                                           idBack = self.backId,
+                                           sandBox=True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "please submit image 1",
-    #                       msg='test_nullIdFront assert#1 has failed.')
-
-
-
-    # # Test a int IdFront.
-    # def test_intIdFront(self):
-    #     responseBody = self.user.
-
-    #     self.assertEqual(responseBody['errorMessage'], "IdFront is not a valid base-64 string.",
-    #                       msg='test_intIdFront assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], "please submit id Front",
+                          msg='test_nullIdFront assert#1 has failed.')
 
 
 
-    # # Test a float IdFront.
-    # def test_floatIdFront(self):
-    #     responseBody = self.user.
+    # Test a int IdFront.
+    def test_intIdFront(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = 234234, 
+                                           idBack = self.backId,
+                                           sandBox=True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "IdFront is not a valid base-64 string.",
-    #                       msg='test_floatIdFront assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], 'idFront is not a valid base-64 string.',
+                          msg='test_intIdFront assert#1 has failed.')
+
+
+
+    # Test a float IdFront.
+    def test_floatIdFront(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = 23.23, 
+                                           idBack = self.backId,
+                                           sandBox=True)
+
+        self.assertEqual(responseBody['errorMessage'], "idFront is not a valid base-64 string.",
+                          msg='test_floatIdFront assert#1 has failed.')
         
         
         
-    # # Test a string IdFront value call.
-    # def test_stringIdFront(self):
-    #     responseBody = self.user.
+    # Test a string IdFront value call.
+    def test_stringIdFront(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = 'fake string', 
+                                           idBack = self.backId,
+                                           sandBox=True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "IdFront is not a valid base-64 string.",
-    #                       msg='test_stringIdFront assert#1 has failed.')
-
-
-
-    # # Test an array IdFront value call.
-    # def test_arrayIdFront(self):
-    #     responseBody = self.user.
-
-    #     self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
-    #                       msg='test_arrayIdFront assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], 'idFront is not a valid base-64 string.',
+                          msg='test_stringIdFront assert#1 has failed.')
 
 
 
+    # Test an array IdFront value call.
+    def test_arrayIdFront(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = [], 
+                                           idBack = self.backId,
+                                           sandBox=True)
 
-    # # *********************************************************************
-    # # *                           IdBack tests                              *
-    # # *********************************************************************
+        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+                          msg='test_arrayIdFront assert#1 has failed.')
+
+
+
+
+    # *********************************************************************
+    # *                           IdBack tests                            *
+    # *********************************************************************
     
     
         
-    # # Missing IdBack information from request call.
-    # def test_missingIdBack(self):
-    #     responseBody = self.user.
+    # Missing IdBack information from request call.
+    def test_missingIdBack(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = self.frontId, 
+                                           idBack = self.backId,
+                                           sandBox=True,
+                                           idBackExclude = True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "please submit image 2",
-    #                      msg='test_missingIdBack assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], 'please submit id Back',
+                         msg='test_missingIdBack assert#1 has failed.')
         
         
         
-    # # Test a null IdBack.
-    # def test_nullIdBack(self):
-    #     responseBody = self.user.
+    # Test a null IdBack.
+    def test_nullIdBack(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = self.frontId, 
+                                           idBack = '',
+                                           sandBox=True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "please submit image 2",
-    #                       msg='test_nullIdBack assert#1 has failed.')
-
-
-
-    # # Test a int IdBack.
-    # def test_intIdBack(self):
-    #     responseBody = self.user.
-
-    #     self.assertEqual(responseBody['errorMessage'], "IdBack is not a valid base-64 string.",
-    #                       msg='test_intIdBack assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], 'please submit id Back',
+                          msg='test_nullIdBack assert#1 has failed.')
 
 
 
-    # # Test a float IdBack.
-    # def test_floatIdBack(self):
-    #     responseBody = self.user.
+    # Test a int IdBack.
+    def test_intIdBack(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = self.frontId, 
+                                           idBack = 234,
+                                           sandBox=True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "IdBack is not a valid base-64 string.",
-    #                       msg='test_floatIdBack assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], 'idBack is not a valid base-64 string.',
+                          msg='test_intIdBack assert#1 has failed.')
+
+
+
+    # Test a float IdBack.
+    def test_floatIdBack(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = self.frontId, 
+                                           idBack = 2.2,
+                                           sandBox=True)
+
+        self.assertEqual(responseBody['errorMessage'], 'idBack is not a valid base-64 string.',
+                          msg='test_floatIdBack assert#1 has failed.')
         
         
         
-    # # Test a string IdBack value call.
-    # def test_stringIdBack(self):
-    #     responseBody = self.user.
+    # Test a string IdBack value call.
+    def test_stringIdBack(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = self.frontId, 
+                                           idBack = 'self.backId',
+                                           sandBox=True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "IdBack is not a valid base-64 string.",
-    #                       msg='test_stringIdBack assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], 'idBack is not a valid base-64 string.',
+                          msg='test_stringIdBack assert#1 has failed.')
 
 
 
-    # # Test an array IdBack value call.
-    # def test_arrayIdBack(self):
-    #     responseBody = self.user.
+    # Test an array IdBack value call.
+    def test_arrayIdBack(self):
+        responseBody = self.user.upload_id(accessCode = self.user.GetAccessCode(), 
+                                           idFront = self.frontId, 
+                                           idBack = [],
+                                           sandBox=True)
 
-    #     self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
-    #                       msg='test_arrayIdBack assert#1 has failed.')
+        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+                          msg='test_arrayIdBack assert#1 has failed.')
 
 
 
@@ -268,26 +323,26 @@ def suite():
 
     suite.addTest(TestUploadId('test_success'))
 
-    # suite.addTest(TestUploadId('test_missingAccessCode'))
-    # suite.addTest(TestUploadId('test_nullAccessCode'))
-    # suite.addTest(TestUploadId('test_intAccessCode'))
-    # suite.addTest(TestUploadId('test_floatAccessCode'))
-    # suite.addTest(TestUploadId('test_stringAccessCode'))
-    # suite.addTest(TestUploadId('test_arrayAccessCode'))
+    suite.addTest(TestUploadId('test_missingAccessCode'))
+    suite.addTest(TestUploadId('test_nullAccessCode'))
+    suite.addTest(TestUploadId('test_intAccessCode'))
+    suite.addTest(TestUploadId('test_floatAccessCode'))
+    suite.addTest(TestUploadId('test_stringAccessCode'))
+    suite.addTest(TestUploadId('test_arrayAccessCode'))
 
-    # suite.addTest(TestUploadId('test_missingIdFront'))
-    # suite.addTest(TestUploadId('test_nullIdFront'))
-    # suite.addTest(TestUploadId('test_intIdFront'))
-    # suite.addTest(TestUploadId('test_floatIdFront'))
-    # suite.addTest(TestUploadId('test_stringIdFront'))
-    # suite.addTest(TestUploadId('test_arrayIdFront'))
+    suite.addTest(TestUploadId('test_missingIdFront'))
+    suite.addTest(TestUploadId('test_nullIdFront'))
+    suite.addTest(TestUploadId('test_intIdFront'))
+    suite.addTest(TestUploadId('test_floatIdFront'))
+    suite.addTest(TestUploadId('test_stringIdFront'))
+    suite.addTest(TestUploadId('test_arrayIdFront'))
 
-    # suite.addTest(TestUploadId('test_missingIdBack'))
-    # suite.addTest(TestUploadId('test_nullIdBack'))
-    # suite.addTest(TestUploadId('test_intIdBack'))
-    # suite.addTest(TestUploadId('test_floatIdBack'))
-    # suite.addTest(TestUploadId('test_stringIdBack'))
-    # suite.addTest(TestUploadId('test_arrayIdBack'))
+    suite.addTest(TestUploadId('test_missingIdBack'))
+    suite.addTest(TestUploadId('test_nullIdBack'))
+    suite.addTest(TestUploadId('test_intIdBack'))
+    suite.addTest(TestUploadId('test_floatIdBack'))
+    suite.addTest(TestUploadId('test_stringIdBack'))
+    suite.addTest(TestUploadId('test_arrayIdBack'))
 
     return suite
     

@@ -29,28 +29,28 @@ suite  = unittest.TestSuite()
 ## $ python runner.py
 if len(sys.argv) == 1:
     # suite.addTests(loader.suiteClass(testCreateUser.suite()))
-    # suite.addTests(loader.suiteClass(testUpdateUser.suite()))
+    suite.addTests(loader.suiteClass(testUpdateUser.suite()))
     # suite.addTests(loader.suiteClass(testGetUser.suite()))
     # suite.addTests(loader.suiteClass(testVerifyPhone.suite()))
     # suite.addTests(loader.suiteClass(testVerifyPhoneCode.suite()))
     # suite.addTests(loader.suiteClass(testVerifyEmail.suite()))
-    # suite.addTests(loader.suiteClass(testVerifySocialNetworks.suite()))
+    # suite.addTests(loader.suiteClass(testVerifySocialNetworks.suite()))#HERERERE
     # suite.addTests(loader.suiteClass(testGetAvailableSocialNetworks.suite()))
     # suite.addTests(loader.suiteClass(testComparePhotos.suite()))
     # suite.addTests(loader.suiteClass(testSetSocialNetworks.suite()))
     # suite.addTests(loader.suiteClass(testSetContractRequired.suite()))
     # suite.addTests(loader.suiteClass(testSetPhotoMatchPercent.suite()))
-    suite.addTests(loader.suiteClass(testSetDaysExpire.suite()))
+    # suite.addTests(loader.suiteClass(testSetDaysExpire.suite()))
 else:
     ## $ python runner.py -sandBox
     if sys.argv[1] == '-sandBox':
-        # suite.addTests(loader.suiteClass(testUploadId.suite())) # ENDPT IS BROKEN
-        # suite.addTests(loader.suiteClass(testUploadIdEnhanced.suite())) # ENDPT IS BROKEN
-        # suite.addTests(loader.suiteClass(testCheckUploadId.suite())) # ENDPT IS BROKEN
-        # suite.addTests(loader.suiteClass(testUploadPassport.suite())) # ENDPT IS BROKEN
+        # suite.addTests(loader.suiteClass(testUploadId.suite())) 
+        # suite.addTests(loader.suiteClass(testUploadIdEnhanced.suite())) 
+        suite.addTests(loader.suiteClass(testCheckUploadId.suite())) # ENDPT IS BROKEN
+        # suite.addTests(loader.suiteClass(testUploadPassport.suite()))
         # suite.addTests(loader.suiteClass(testCheckUploadPassword.suite()))
         # suite.addTests(loader.suiteClass(testGetTestResults.suite()))
-        suite.addTests(loader.suiteClass(testGetQuiz.suite()))
+        # suite.addTests(loader.suiteClass(testGetQuiz.suite()))
 
 # Initialize an xml runner.
 testRunner=xmlrunner.XMLTestRunner(output='data/testReports', verbosity=2)

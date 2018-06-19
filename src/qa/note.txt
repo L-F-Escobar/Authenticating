@@ -1,50 +1,66 @@
 Authenticate end point notes
 
+
 Create user end point
     - A user can be created with the same information ad infinitum successfully; generating a new userId every time.
     - firstName can be any integer &/or float value.
     - lastName can be any integer &/or float value.
     - phone can be any integer, float, or string value.
 
-Update User end point   
-    - Address, City, State, zipCode, Phone, Month, Day, Year, firstname, lastName can be excluded 
-      from the call & be any null, integer, string or float value.
+
+Update User end point   (THIS ONE I UPDATED)
+    - city can be any integer or float value
+    - month can be any integer, float, or string value. 
+    - day can be any integer, float, or string value. 
+    - year can be any integer, float, or string value. 
+    - firstName can be any integer or float value
+    - lastName can be any integer or float value
+
 
 Verify Phone end point  
     - A user can verify their phone ad infinitum
 
+
 Verify Phone Code end point
     - Can only automate the fail cases.
 
+
 Verify Email end point  
     - A user can verify their email ad infinitum
+
 
 Verify Social Networks end point    
     - Networks can be any integer, float & string value.
     - SocialMediaAccessToken can be any integer, float, or string value.
     - SocialMediaUserId can be any integer, float, or string value.
 
-Upload Id end point (sand box broken)
-    - the response is a string instead of a dictionary key:value pair (bug)
 
-Upload Id Enhcnaced end point (sand box broken)
-    - the response is a string instead of a dictionary key:value pair (bug)
+Upload Id end point (sand box broken) (THIS ONE I UPDATED)
+    - Can upload an id with a missing, null, or invalid accessCode.
+    - idBack can be excluded from the call, can be any null, integer, or string value.
+
+
+Upload Id Enhcnaced end point (sand box broken) (THIS ONE I UPDATED)
+    - Can upload an id with a missing, null, or invalid accessCode.
+    - idBack can be excluded from the call, can be any null, integer, or string value.
+
 
 Check Upload Id end point (sand box broken)
     - within the sandBox - will always return the same data. (bug)
 
-Upload Passport end point (sand box broken)
-    - the response is a string instead of a dictionary key:value pair (bug)
 
-
+Upload Passport end point (sand box broken)  (THIS ONE I UPDATED)
+    - Can upload an id with a missing, null, or invalid accessCode.
 
 
 Set Contract Required end point
     - isPhoneRequired can be any null, integer, float, or string value.
     - isEmailRequired can be any null, integer, float, or string value.
 
+
 Set Days to Expire end point
     - days can be any integer value.
+
 
 Get Quiz end point
     - accessCode can be missing from the call or be any null, integer, float, or string value.
