@@ -38,9 +38,9 @@ if len(sys.argv) == 1:
     # suite.addTests(loader.suiteClass(testGetAvailableSocialNetworks.suite()))
     # suite.addTests(loader.suiteClass(testComparePhotos.suite()))
     # suite.addTests(loader.suiteClass(testSetSocialNetworks.suite()))
-    # suite.addTests(loader.suiteClass(testSetContractRequired.suite()))
+    suite.addTests(loader.suiteClass(testSetContractRequired.suite()))
     # suite.addTests(loader.suiteClass(testSetPhotoMatchPercent.suite()))
-    suite.addTests(loader.suiteClass(testSetDaysExpire.suite()))
+    # suite.addTests(loader.suiteClass(testSetDaysExpire.suite()))
 else:
     ## $ python runner.py -sandBox
     if sys.argv[1] == '-sandBox':
