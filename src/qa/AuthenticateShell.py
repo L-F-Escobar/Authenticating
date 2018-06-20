@@ -1415,14 +1415,14 @@ def testClass():
     # user.compare_photo(user.GetAccessCode(), data['my_selfie_1'], data['my_selfie_2'])
 
 
-    front, back = base64Encode()
+    # front, back = base64Encode()
 
 
-    # Method signature. BROKEN
-    # def upload_id(self, accessCode='', idFront='', idBack='',
-    #                   accessCodeExclude=False, idBackExclude=False,
-    #                   idFrontExclude=False, sandBox=False):
-    user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
+    # # Method signature. BROKEN
+    # # def upload_id(self, accessCode='', idFront='', idBack='',
+    # #                   accessCodeExclude=False, idBackExclude=False,
+    # #                   idFrontExclude=False, sandBox=False):
+    # user.upload_id(user.GetAccessCode(), front, back, sandBox=True)
 
 
     # # Method signature. BROKEN

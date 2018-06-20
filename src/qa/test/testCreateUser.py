@@ -150,7 +150,6 @@ class TestCreateUser(unittest.TestCase):
 
 
     # Test a int FirstName.
-    @unittest.skip("Validation bug - integer first name")
     def test_intFirstName(self):
         responseBody = self.user.create_user(firstName = 123456789, 
                                              lastName = AuthenticateShell.data["lastName"], 
@@ -159,13 +158,12 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody['errorMessage'], "first name required",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_intFirstName assert#1 has failed.')
 
 
 
     # Test a float FirstName.
-    @unittest.skip("Validation bug - float first name")
     def test_floatFirstName(self):
         responseBody = self.user.create_user(firstName = 12.3456789, 
                                              lastName = AuthenticateShell.data["lastName"], 
@@ -174,7 +172,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody['errorMessage'], "first name required",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_floatFirstName assert#1 has failed.')
         
         
@@ -243,7 +241,6 @@ class TestCreateUser(unittest.TestCase):
 
 
     # Test a int LastName.
-    @unittest.skip("Validation bug - integer first name")
     def test_intLastName(self):
         responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
                                              lastName = 846513581351, 
@@ -252,13 +249,12 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_intLastName assert#1 has failed.')
 
 
 
     # Test a float LastName.
-    @unittest.skip("Validation bug - float first name")
     def test_floatLastName(self):
         responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
                                              lastName = 8465135.81351, 
@@ -267,7 +263,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_floatLastName assert#1 has failed.')
         
         
@@ -429,7 +425,6 @@ class TestCreateUser(unittest.TestCase):
 
 
     # Test a int Phone.
-    @unittest.skip("Validation bug - integer phone value")
     def test_intPhone(self):
         responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
                                              lastName = AuthenticateShell.data["lastName"], 
@@ -438,13 +433,12 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], "Please enter a valid phone number",
                           msg='test_intPhone assert#1 has failed.')
 
 
 
     # Test a float Phone.
-    @unittest.skip("Validation bug - float phone value")
     def test_floatPhone(self):
         responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
                                              lastName = AuthenticateShell.data["lastName"], 
@@ -453,13 +447,12 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], "Please enter a valid phone number",
                           msg='test_floatPhone assert#1 has failed.')
         
         
         
     # Test a string Phone value call.
-    @unittest.skip("Validation bug - string phone value")
     def test_stringPhone(self):
         responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
                                              lastName = AuthenticateShell.data["lastName"], 
@@ -468,7 +461,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody[''], "",
+        self.assertEqual(responseBody['errorMessage'], "Please enter a valid phone number",
                           msg='test_stringPhone assert#1 has failed.')
 
 

@@ -116,7 +116,7 @@ class TestComparePhotos(unittest.TestCase):
                                                img1 = AuthenticateShell.data['my_selfie_1'], 
                                                img2 = AuthenticateShell.data['my_selfie_2'])
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_intAccessCode assert#1 has failed.')
 
 
@@ -127,7 +127,7 @@ class TestComparePhotos(unittest.TestCase):
                                                img1 = AuthenticateShell.data['my_selfie_1'], 
                                                img2 = AuthenticateShell.data['my_selfie_2'])
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_floatAccessCode assert#1 has failed.')
         
         

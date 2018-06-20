@@ -93,7 +93,7 @@ class TestGetAvailableSocialNetworks(unittest.TestCase):
     def test_intAccessCode(self):
         responseBody = self.user.get_available_social_networks(accessCode = 123852123)
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_intAccessCode assert#1 has failed.')
 
 
@@ -102,7 +102,7 @@ class TestGetAvailableSocialNetworks(unittest.TestCase):
     def test_floatAccessCode(self):
         responseBody = self.user.get_available_social_networks(accessCode = 12385212.3)
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_floatAccessCode assert#1 has failed.')
         
         
