@@ -89,7 +89,7 @@ class TestVerifyPhone(unittest.TestCase):
         responseBody = self.user.verify_phone_code(accessCode = 1,
                                                    smsCode = AuthenticateShell.data["smsCode"])
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_intAccessCode assert#1 has failed.')
 
 
@@ -99,7 +99,7 @@ class TestVerifyPhone(unittest.TestCase):
         responseBody = self.user.verify_phone_code(accessCode = 123.369,
                                                    smsCode = AuthenticateShell.data["smsCode"])
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_floatAccessCode assert#1 has failed.')
         
         

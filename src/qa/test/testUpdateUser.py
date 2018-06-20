@@ -950,7 +950,7 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              monthExclude = True)
 
-        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid month',
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingMonth assert#1 has failed.')
         
         
@@ -969,7 +969,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid month',
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_nullMonth assert#1 has failed.')
 
 
@@ -1074,7 +1074,7 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              dayExclude = True)
 
-        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid day',
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingDay assert#1 has failed.')
         
         
@@ -1093,7 +1093,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid day',
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_nullDay assert#1 has failed.')
 
 
@@ -1196,7 +1196,7 @@ class TestUpdateUser(unittest.TestCase):
                                              lastName = AuthenticateShell.data["updatedLastName"],
                                              yearExclude = True)
 
-        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid year',
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingYear assert#1 has failed.')
         
         
@@ -1215,7 +1215,7 @@ class TestUpdateUser(unittest.TestCase):
                                              firstName = AuthenticateShell.data["updatedFirstName"], 
                                              lastName = AuthenticateShell.data["updatedLastName"])
 
-        self.assertEqual(responseBody['errorMessage'], 'Please enter a valid year',
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_nullYear assert#1 has failed.')
 
 

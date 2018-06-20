@@ -89,7 +89,7 @@ class TestUpdateUser(unittest.TestCase):
 
 
     # *********************************************************************
-    # *                         AccessCode tests                            *
+    # *                         AccessCode tests                          *
     # *********************************************************************
     
     
@@ -117,7 +117,7 @@ class TestUpdateUser(unittest.TestCase):
     def test_intAccessCode(self):
         responseBody = self.user.get_user(accessCode = 1111111111111)
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "User not found",
                           msg='test_intAccessCode assert#1 has failed.')
 
 
@@ -126,7 +126,7 @@ class TestUpdateUser(unittest.TestCase):
     def test_floatAccessCode(self):
         responseBody = self.user.get_user(accessCode = 111111111111.1)
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "User not found",
                           msg='test_floatAccessCode assert#1 has failed.')
         
         

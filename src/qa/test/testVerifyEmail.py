@@ -87,7 +87,7 @@ class TestVerifyEmail(unittest.TestCase):
     def test_intAccessCode(self):
         responseBody = self.user.verify_email(accessCode = 1111111111111)
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_intAccessCode assert#1 has failed.')
 
 
@@ -96,7 +96,7 @@ class TestVerifyEmail(unittest.TestCase):
     def test_floatAccessCode(self):
         responseBody = self.user.verify_email(accessCode = 111111111111.1)
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_floatAccessCode assert#1 has failed.')
         
         

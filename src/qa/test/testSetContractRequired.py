@@ -175,7 +175,7 @@ class TestSetContractRequired(unittest.TestCase):
                                                         isPhoneRequired = '', 
                                                         isEmailRequired = False)
 
-        self.assertEqual(responseBody['errorMessage'], 'isPhoneRequired field must be either true or false',
+        self.assertEqual(responseBody['errorMessage'], 'isPhoneRequired field required',
                           msg='test_nullIsPhoneRequired assert#1 has failed.')
 
 
@@ -249,7 +249,7 @@ class TestSetContractRequired(unittest.TestCase):
                                                         isPhoneRequired = False, 
                                                         isEmailRequired = '')
 
-        self.assertEqual(responseBody['errorMessage'], 'isEmailRequired field must be either true or false',
+        self.assertEqual(responseBody['errorMessage'], 'isEmailRequired field required',
                           msg='test_nullIsEmailRequired assert#1 has failed.')
 
 
