@@ -22,7 +22,7 @@ import sys, unittest, AuthenticateShell
         country
 
     Test cases
-        Successfully create a user.
+        Successfully create a user from multiple countries.
 
         FirstName missing from request call.
         Null FirstName value. 
@@ -85,7 +85,7 @@ class TestCreateUser(unittest.TestCase):
 
 
 
-    # Successfully crete a user.
+    # Successfully crete a user from multiple countries.
     def test_success(self):
         responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
                                              lastName = AuthenticateShell.data["lastName"], 
@@ -113,6 +113,38 @@ class TestCreateUser(unittest.TestCase):
                          msg='test_success assert#6 has failed.')
 
 
+        responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
+                                             lastName = AuthenticateShell.data["lastName"], 
+                                             email = AuthenticateShell.data["email"], 
+                                             phone = AuthenticateShell.data["phone"], 
+                                             companyAdminKey = AuthenticateShell.data["company_admin_key"], 
+                                             country = AuthenticateShell.data["countryCAN"])
+
+        self.assertEqual(responseBody['successful'], True,
+                         msg='test_success assert#7 has failed.')
+
+
+        responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
+                                             lastName = AuthenticateShell.data["lastName"], 
+                                             email = AuthenticateShell.data["email"], 
+                                             phone = AuthenticateShell.data["phone"], 
+                                             companyAdminKey = AuthenticateShell.data["company_admin_key"], 
+                                             country = AuthenticateShell.data["countryAFR"])
+
+        self.assertEqual(responseBody['successful'], True,
+                         msg='test_success assert#8 has failed.')
+
+
+
+        responseBody = self.user.create_user(firstName = AuthenticateShell.data["firstName"], 
+                                             lastName = AuthenticateShell.data["lastName"], 
+                                             email = AuthenticateShell.data["email"], 
+                                             phone = AuthenticateShell.data["phone"], 
+                                             companyAdminKey = AuthenticateShell.data["company_admin_key"], 
+                                             country = AuthenticateShell.data["countryASI"])
+
+        self.assertEqual(responseBody['successful'], True,
+                         msg='test_success assert#9 has failed.')
 
     # *********************************************************************
     # *                         FirstName tests                           *
@@ -405,7 +437,7 @@ class TestCreateUser(unittest.TestCase):
                                              country = AuthenticateShell.data["country"],
                                              phoneExclude = True)
 
-        self.assertEqual(responseBody['errorMessage'], "phone number required",
+        self.assertEqual(responseBody['successful'], True,
                          msg='test_missingPhone assert#1 has failed.')
         
         
@@ -419,7 +451,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody['errorMessage'], "phone number required",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_nullPhone assert#1 has failed.')
 
 
@@ -433,7 +465,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody['errorMessage'], "Please enter a valid phone number",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_intPhone assert#1 has failed.')
 
 
@@ -447,7 +479,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody['errorMessage'], "Please enter a valid phone number",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_floatPhone assert#1 has failed.')
         
         
@@ -461,7 +493,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody['errorMessage'], "Please enter a valid phone number",
+        self.assertEqual(responseBody['successful'], True,
                           msg='test_stringPhone assert#1 has failed.')
 
 
@@ -475,7 +507,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = AuthenticateShell.data["country"])
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], 'An unknown error has occurred.',
                           msg='test_arrayPhone assert#1 has failed.')
 
 
@@ -590,7 +622,7 @@ class TestCreateUser(unittest.TestCase):
                                              country = AuthenticateShell.data["country"],
                                              countryExclude = True)
 
-        self.assertEqual(responseBody['errorMessage'], "country required",
+        self.assertEqual(responseBody['errorMessage'], "Please specify a region. See documentation for full list.",
                          msg='test_missingCountry assert#1 has failed.')
         
         
@@ -604,7 +636,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = '')
 
-        self.assertEqual(responseBody['errorMessage'], "country required",
+        self.assertEqual(responseBody['errorMessage'], "Please specify a region. See documentation for full list.",
                           msg='test_nullCountry assert#1 has failed.')
 
 
@@ -618,7 +650,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = 666666666666)
 
-        self.assertEqual(responseBody['errorMessage'], "Invalid country. Please use 'USA' for United States and 'CAN' for Canada",
+        self.assertEqual(responseBody['errorMessage'], 'Please specify a valid region. See documentation for full list.',
                           msg='test_intCountry assert#1 has failed.')
 
 
@@ -632,7 +664,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = 66666.6666666)
 
-        self.assertEqual(responseBody['errorMessage'], "Invalid country. Please use 'USA' for United States and 'CAN' for Canada",
+        self.assertEqual(responseBody['errorMessage'], 'Please specify a valid region. See documentation for full list.',
                           msg='test_floatCountry assert#1 has failed.')
         
         
@@ -646,7 +678,7 @@ class TestCreateUser(unittest.TestCase):
                                              companyAdminKey = AuthenticateShell.data["company_admin_key"], 
                                              country = 'This is not a valid county')
 
-        self.assertEqual(responseBody['errorMessage'], "Invalid country. Please use 'USA' for United States and 'CAN' for Canada",
+        self.assertEqual(responseBody['errorMessage'], 'Please specify a valid region. See documentation for full list.',
                           msg='test_stringCountry assert#1 has failed.')
 
 

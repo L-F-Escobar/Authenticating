@@ -3,7 +3,8 @@ import sys, unittest, AuthenticateShell
 '''
     Authenticate verify phone code end point.
     
-    Purpose - 
+    Purpose - This is used to complete the phone number verification process.
+              The user receives an SMS with a code.
     
     Notes - only the fails can be automated.
 

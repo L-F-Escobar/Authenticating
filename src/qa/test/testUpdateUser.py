@@ -6,7 +6,7 @@ import sys, unittest, AuthenticateShell
     Purpose - Allows an active user to update their account information.
               If fields are ommitted or null, they will not be updated.
     
-    Notes - 
+    Notes - User is from Africa. 
 
     Method signature:
         def update_user(self, accessCode='', address='', city='', state='',
@@ -121,7 +121,7 @@ class TestUpdateUser(unittest.TestCase):
                                 email = AuthenticateShell.data["email"], 
                                 phone = AuthenticateShell.data["phone"], 
                                 companyAdminKey = AuthenticateShell.data["company_admin_key"], 
-                                country = AuthenticateShell.data["country"])
+                                country = AuthenticateShell.data["countryAFR"])
         except:
             print("Unexpected error during setUpClass:", sys.exc_info()[0])
 

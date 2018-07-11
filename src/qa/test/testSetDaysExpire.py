@@ -5,6 +5,8 @@ import sys, unittest, AuthenticateShell
     
     Purpose - set the maximum number of days (24 hour periods) in 
               which a person can complete their test within. 
+              
+    Notes - THIS HAS BEEN CONFIRMED THROUGH MANUAL DATABASE AUTHENTICATION.
 
     Method signature:
         def set_days_expire(self, companyAdminKey='', days=10,

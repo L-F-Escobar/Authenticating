@@ -772,9 +772,10 @@ class Authenticate:
 
         # resultMessage == key
         if TestOutput == True:
-            print('\nupload_passport\n', responseBody)
+            print('\nupload_passport\n', response)
+            # print('\nupload_passport\n', responseBody)
             print('\nresponse.text\n', response.text)
-            print('\nresponse.status_code: ', response.status_code)
+            # print('\nresponse.status_code: ', response.status_code)
         
         return responseBody
 
@@ -1348,7 +1349,7 @@ def testClass():
     #             lastNameExclude=False, emailExclude=False, phoneExclude=False,
     #             companyAdminKeyExclude=False, countryExclude=False):
     user.create_user(data["firstName"], data["lastName"], data["email"], 
-                     data["phone"], data["company_admin_key"], data["country"],
+                     data["phone"], data["company_admin_key"], data["countryASI"],
                      sandBox=True)
 
 
@@ -1377,8 +1378,8 @@ def testClass():
 
 
     # # Method signature. DONE
-    # # def verify_phone(self, accessCode='', accessCodeExclude=False):
-    # user.verify_phone(user.GetAccessCode())
+    # # def verify_phone(self, accessCode='', accessCodeExclude=False, sandBox=False):
+    # user.verify_phone(user.GetAccessCode(), sandBox=True)
 
 
     # # Method signature. DONE
@@ -1435,9 +1436,9 @@ def testClass():
     # time.sleep(30)
 
 
-    # # Method signature. BROKEN
-    # # def check_upload_id(self, accessCode='', accessCodeExclude=False):
-    # user.check_upload_id(user.GetAccessCode(), sandBox=True)
+    # Method signature. BROKEN
+    # def check_upload_id(self, accessCode='', accessCodeExclude=False):
+    user.check_upload_id(user.GetAccessCode(), sandBox=True)
 
 
     # # Method signature. BROKEN
@@ -1504,20 +1505,20 @@ def testClass():
 
 
 
-    # # Method signature. DONE
-    # # def get_quiz(self, accessCodes='', accessCodesExclude=False,
-    # #              sandBox=False):
-    # response = user.get_quiz(user.GetAccessCode(), sandBox=True)
-    # # for keys in response:
-    # #     if keys == 'question':
-    # #         print()
-    # #         print()
-    # #         for i in range(len(response[keys])):
-    # #             print()
-    # #             for inKeys in response[keys][i]:
-    # #                 print(inKeys, ":", response[keys][i][inKeys])
-    # #     else:
-    # #         print(keys, response[keys])
+    # Method signature. DONE
+    # def get_quiz(self, accessCodes='', accessCodesExclude=False,
+    #              sandBox=False):
+    response = user.get_quiz(user.GetAccessCode(), sandBox=True)
+    # for keys in response:
+    #     if keys == 'question':
+    #         print()
+    #         print()
+    #         for i in range(len(response[keys])):
+    #             print()
+    #             for inKeys in response[keys][i]:
+    #                 print(inKeys, ":", response[keys][i][inKeys])
+    #     else:
+    #         print(keys, response[keys])
 
 
 
@@ -1537,4 +1538,4 @@ def testClass():
     # user.generate_criminal_report(user.GetAccessCode(), sandBox=True)
 
 
-# testClass()
+testClass()

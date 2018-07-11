@@ -6,6 +6,8 @@ import sys, unittest, AuthenticateShell
     Purpose - Set whether or not phone and email verification are 
               both needed for the contact verified test.
 
+    Notes - HAS BEEN CONFIRMED THROUGH MANUAL DATABASE AUTHENTICATION.
+
     Method signature:
         def set_contract_required(self, companyAdminKey='', isPhoneRequired=True,
                               isEmailRequired=True, companyAdminKeyExclude=False, 

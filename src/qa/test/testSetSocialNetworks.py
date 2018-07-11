@@ -3,14 +3,12 @@ import sys, unittest, AuthenticateShell
 '''
     Authenticate set social network end point.
     
-    Purpose - 
+    Purpose - This endpoint sets the available social networks for individuals taking a test.
 
     Method signature:
         def set_social_networks(self, companyAdminKey='', networks=[],
                                 companyAdminKeyExclude=False, 
                                 networksExclude=False, sandBox=False):
-
-    Note: THIS END POINT IS BROKEN DUE TO SAND BOXING.
 
     Required:
         companyAdminKey
@@ -50,6 +48,8 @@ class TestSetSocialNetworks(unittest.TestCase):
             print("Unexpected error during setUpClass:", sys.exc_info()[0])
 
 
+    ## ALWAYS RETURN THE NETWORKS TO THEIR DEFAULT VALUES!!
+    #
     @classmethod
     def tearDownClass(cls):
         try:

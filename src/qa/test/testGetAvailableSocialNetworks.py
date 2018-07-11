@@ -3,9 +3,10 @@ import sys, unittest, AuthenticateShell
 '''
     Authenticate get available social networks end point.
     
-    Purpose - 
+    Purpose - This is used to obtain the list of social networks that a user 
+              may log into to verify their account ownership or control.
     
-    Notes - 
+    Notes - User is from Asia.
 
     Method signature:
         def get_available_social_networks(self, accessCode='', accessCodeExclude=False):
@@ -35,7 +36,7 @@ class TestGetAvailableSocialNetworks(unittest.TestCase):
                                  email = AuthenticateShell.data["email"], 
                                  phone = AuthenticateShell.data["phone"], 
                                  companyAdminKey = AuthenticateShell.data["company_admin_key"], 
-                                 country = AuthenticateShell.data["country"])
+                                 country = AuthenticateShell.data["countryASI"])
         except:
             print("Unexpected error during setUpClass:", sys.exc_info()[0])
 

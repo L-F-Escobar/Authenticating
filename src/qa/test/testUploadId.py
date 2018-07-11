@@ -6,6 +6,8 @@ import sys, unittest, AuthenticateShell
     Purpose - This is used to capture data from an ID and, if determined 
               to be a valid ID, auto-fill forms.
 
+    Notes - User is from Asia.
+
     Method signature:
         def upload_id(self, accessCode='', idFront='', idBack='',
                       accessCodeExclude=False, idBackExclude=False,
@@ -52,7 +54,8 @@ class TestUploadId(unittest.TestCase):
                                  email = AuthenticateShell.data["email"], 
                                  phone = AuthenticateShell.data["phone"], 
                                  companyAdminKey = AuthenticateShell.data["company_admin_key"], 
-                                 country = AuthenticateShell.data["country"])
+                                 country = AuthenticateShell.data["countryASI"],
+                                 sandBox=True)
             
             cls.frontId, cls.backId = AuthenticateShell.base64Encode()
         except:
@@ -75,7 +78,7 @@ class TestUploadId(unittest.TestCase):
                                            idBack = self.backId,
                                            sandBox=True)
 
-        self.assertNotEqual(responseBody, '',
+        self.assertEqual(responseBody['success'], True,
                          msg='test_success assert#1 has failed.')
 
 

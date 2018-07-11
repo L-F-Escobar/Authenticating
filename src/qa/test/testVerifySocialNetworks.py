@@ -3,9 +3,9 @@ import sys, unittest, AuthenticateShell
 '''
     Authenticate verify social networks end point.
     
-    Purpose - 
+    Purpose - This is used to confirm valid social media credentials were entered.
     
-    Notes - 
+    Notes - User is from Canada.
 
     Method signature:
         def verify_social_network(self, accessCode='', network='', socialMediaAccessToken='',
@@ -62,7 +62,7 @@ class TestVerifySocialNetworks(unittest.TestCase):
                                  email = AuthenticateShell.data["email"], 
                                  phone = AuthenticateShell.data["phone"], 
                                  companyAdminKey = AuthenticateShell.data["company_admin_key"], 
-                                 country = AuthenticateShell.data["country"])
+                                 country = AuthenticateShell.data["countryCAN"])
         except:
             print("Unexpected error during setUpClass:", sys.exc_info()[0])
 

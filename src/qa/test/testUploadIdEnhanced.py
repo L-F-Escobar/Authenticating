@@ -13,8 +13,6 @@ import sys, unittest, AuthenticateShell
                                 accessCodeExclude=False, idBackExclude=False,
                                 idFrontExclude=False, sandBox=False):
 
-    Note: THIS END POINT IS BROKEN DUE TO SAND BOXING.
-
     Required:
         accessCode
         idFront
@@ -56,7 +54,8 @@ class TestUploadIdEnchanced(unittest.TestCase):
                                  email = AuthenticateShell.data["email"], 
                                  phone = AuthenticateShell.data["phone"], 
                                  companyAdminKey = AuthenticateShell.data["company_admin_key"], 
-                                 country = AuthenticateShell.data["country"])
+                                 country = AuthenticateShell.data["country"],
+                                 sandBox=True)
             
             cls.frontId, cls.backId = AuthenticateShell.base64Encode()
         except:
@@ -79,7 +78,7 @@ class TestUploadIdEnchanced(unittest.TestCase):
                                                     idBack = self.backId,
                                                     sandBox=True)
 
-        self.assertNotEqual(responseBody, '',
+        self.assertEqual(responseBody['success'], True,
                          msg='test_success assert#1 has failed.')
 
 

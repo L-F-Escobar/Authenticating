@@ -34,7 +34,8 @@ class TestCheckUploadPassport(unittest.TestCase):
                                 email = AuthenticateShell.data["email"], 
                                 phone = AuthenticateShell.data["phone"], 
                                 companyAdminKey = AuthenticateShell.data["company_admin_key"], 
-                                country = AuthenticateShell.data["country"])
+                                country = AuthenticateShell.data["country"],
+                                sandBox = True)
         except:
             print("Unexpected error during setUpClass:", sys.exc_info()[0])
 
@@ -104,7 +105,7 @@ class TestCheckUploadPassport(unittest.TestCase):
         responseBody = self.user.check_upload_passport(accessCode = 1111111111111,
                                                     sandBox = True)
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_intAccessCode assert#1 has failed.')
 
 
@@ -114,7 +115,7 @@ class TestCheckUploadPassport(unittest.TestCase):
         responseBody = self.user.check_upload_passport(accessCode = 111111111111.1,
                                                      sandBox = True)
 
-        self.assertEqual(responseBody['errorMessage'], "An unknown error has occurred.",
+        self.assertEqual(responseBody['errorMessage'], "access has expired or does not exist",
                           msg='test_floatAccessCode assert#1 has failed.')
         
         

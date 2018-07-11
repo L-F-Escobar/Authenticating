@@ -10,6 +10,8 @@ import sys, unittest, AuthenticateShell
               returns a success if the two images sent were successfully 
               uploaded and saved to the database.
 
+    Notes - User is from Canada.
+
     Method signature:
         def compare_photo(self, accessCode='', img1='', img2='',
                         accessCodeExclude=False, img1Exclude=False,
@@ -56,7 +58,7 @@ class TestComparePhotos(unittest.TestCase):
                                  email = AuthenticateShell.data["email"], 
                                  phone = AuthenticateShell.data["phone"], 
                                  companyAdminKey = AuthenticateShell.data["company_admin_key"], 
-                                 country = AuthenticateShell.data["country"])
+                                 country = AuthenticateShell.data["countryCAN"])
         except:
             print("Unexpected error during setUpClass:", sys.exc_info()[0])
 

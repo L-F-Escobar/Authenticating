@@ -10,8 +10,6 @@ import sys, unittest, AuthenticateShell
                             accessCodeExclude=False, idFrontExclude=False, 
                             sandBox=False):
 
-    Note: THIS END POINT IS BROKEN DUE TO SAND BOXING.
-
     Required:
         accessCode
         idFront
@@ -45,7 +43,8 @@ class TestUploadPassport(unittest.TestCase):
                                  email = AuthenticateShell.data["email"], 
                                  phone = AuthenticateShell.data["phone"], 
                                  companyAdminKey = AuthenticateShell.data["company_admin_key"], 
-                                 country = AuthenticateShell.data["country"])
+                                 country = AuthenticateShell.data["country"],
+                                 sandBox = True)
         except:
             print("Unexpected error during setUpClass:", sys.exc_info()[0])
 
@@ -65,7 +64,7 @@ class TestUploadPassport(unittest.TestCase):
                                                 idFront = AuthenticateShell.data['passport_good'], 
                                                 sandBox=True)
 
-        self.assertNotEqual(responseBody, '',
+        self.assertNotEqual(responseBody['success'], 'true',
                          msg='test_success assert#1 has failed.')
 
 

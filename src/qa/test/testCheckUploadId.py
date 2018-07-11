@@ -38,7 +38,8 @@ class TestCheckUploadId(unittest.TestCase):
                                 email = AuthenticateShell.data["email"], 
                                 phone = AuthenticateShell.data["phone"], 
                                 companyAdminKey = AuthenticateShell.data["company_admin_key"], 
-                                country = AuthenticateShell.data["country"])
+                                country = AuthenticateShell.data["country"],
+                                sandBox=True)
             
             cls.frontId, cls.backId = AuthenticateShell.base64Encode()
 

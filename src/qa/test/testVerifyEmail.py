@@ -3,7 +3,8 @@ import sys, unittest, AuthenticateShell
 '''
     Authenticate verify email end point.
     
-    Purpose - 
+    Purpose - This is used to complete the email verification process.
+              The user receives an email with a link.
     
     Notes - 
 

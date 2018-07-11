@@ -3,7 +3,8 @@ import sys, unittest, AuthenticateShell
 '''
     Authenticate verify phone end point.
     
-    Purpose - gets all the user information
+    Purpose - This is used to start the phone number verification process. 
+              A phone number is included in the call and an SMS is sent to the user.
     
     Notes - 
 
@@ -14,7 +15,7 @@ import sys, unittest, AuthenticateShell
         accessCode
 
     Test cases
-        Successfully update a user.
+        Successfully start the phone num verification process.
 
         AccessCode missing from request call.
         Null AccessCode value. 
@@ -49,7 +50,7 @@ class TestVerifyPhone(unittest.TestCase):
 
 
 
-    # Successfully update a user.
+    # Successfully 
     def test_success(self):
         responseBody = self.user.verify_phone(accessCode = self.user.GetAccessCode())
 

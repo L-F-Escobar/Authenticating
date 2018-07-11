@@ -6,6 +6,9 @@ import sys, unittest, AuthenticateShell
     Purpose - set the minimum photo match percent 
               needed to pass the photo proof test check. 
 
+    Notes - THIS HAS BEEN CONFIRMED THROUGH MANUAL DATABASE AUTHENTICATION.
+            ALWAYS SET % BACK TO DEFAULT IN TEAR DOWN.
+            
     Method signature:
         def set_photo_match_per(self, companyAdminKey='', percent=40,
                             companyAdminKeyExclude=False, 
