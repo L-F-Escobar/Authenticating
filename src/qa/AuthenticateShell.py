@@ -1161,17 +1161,17 @@ class Authenticate:
             self.responseUniqueId = responseBody['responseUniqueId']
             self.quizId = responseBody['quizId']
 
-        for i in range(len(responseBody['question'])):
-            # Get the question Id. 
-            questionId = responseBody['question'][i]['nsquestionId']
+            for i in range(len(responseBody['question'])):
+                # Get the question Id. 
+                questionId = responseBody['question'][i]['nsquestionId']
 
-            # Then get all the answer id attached to said question id.
-            for x in range(len(responseBody['question'][i]['choice'])):
-                choiceList.append(responseBody['question'][i]['choice'][x]['nschoiceId'])
-            
-            # Now combine the two into a list of dictionary [question:{answers}]
-            self.questions.append({questionId:deepcopy(choiceList)})
-            choiceList.clear()
+                # Then get all the answer id attached to said question id.
+                for x in range(len(responseBody['question'][i]['choice'])):
+                    choiceList.append(responseBody['question'][i]['choice'][x]['nschoiceId'])
+                
+                # Now combine the two into a list of dictionary [question:{answers}]
+                self.questions.append({questionId:deepcopy(choiceList)})
+                choiceList.clear()
 
         return responseBody
 
@@ -1538,4 +1538,4 @@ def testClass():
     # user.generate_criminal_report(user.GetAccessCode(), sandBox=True)
 
 
-testClass()
+# testClass()

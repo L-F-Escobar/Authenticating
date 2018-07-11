@@ -44,12 +44,12 @@ if len(sys.argv) == 1:
 else:
     ## $ python runner.py -sandBox
     if sys.argv[1] == '-sandBox':
-        # suite.addTests(loader.suiteClass(testUploadId.suite())) 
-        # suite.addTests(loader.suiteClass(testUploadIdEnhanced.suite())) 
-        # suite.addTests(loader.suiteClass(testCheckUploadId.suite())) 
-        # suite.addTests(loader.suiteClass(testUploadPassport.suite()))
-        # suite.addTests(loader.suiteClass(testCheckUploadPassword.suite()))
-        # suite.addTests(loader.suiteClass(testGetTestResults.suite()))
+        suite.addTests(loader.suiteClass(testUploadId.suite())) 
+        suite.addTests(loader.suiteClass(testUploadIdEnhanced.suite())) 
+        suite.addTests(loader.suiteClass(testCheckUploadId.suite())) 
+        suite.addTests(loader.suiteClass(testUploadPassport.suite()))
+        suite.addTests(loader.suiteClass(testCheckUploadPassword.suite()))
+        suite.addTests(loader.suiteClass(testGetTestResults.suite()))
         suite.addTests(loader.suiteClass(testGetQuiz.suite()))
 
 # Initialize an xml runner.
